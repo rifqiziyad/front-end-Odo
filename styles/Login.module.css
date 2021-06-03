@@ -1,0 +1,7 @@
+.containerCard {
+  width: 25rem;
+  text-align: left;
+  padding: 15px;
+  margin: 20px auto;
+  border: rgb(54, 66, 224) solid 1px;
+}
