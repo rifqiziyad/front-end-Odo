@@ -35,7 +35,7 @@
 }
 
 .colRight {
-  padding: 40px 80px;
+  padding: 10px 80px;
 }
 
 .colRight h2 {
@@ -48,7 +48,6 @@
   color: rgba(58, 61, 66, 0.6);
   font-size: 16px;
   padding: 0 0 10px 0;
-  font-weight: 700;
 }
 
 .colRight input {

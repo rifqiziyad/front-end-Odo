@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "../../../components/Layout";
-import styles from "../../../styles/Login.module.css";
+import styles from "../../../styles/Register.module.css";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 import { unauthPage } from "../../../middleware/authorizationPage";
@@ -27,7 +27,7 @@ export default function Login() {
   };
 
   return (
-    <Layout title="Login">
+    <Layout title="Register">
       <div className={`container-fluid ${styles.container}`}>
         <div className="row">
           <div className={`col-7 ${styles.colLeft}`}>
@@ -59,6 +59,15 @@ export default function Login() {
             <form>
               <div class="mb-3">
                 <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter your username"
+                ></input>
+              </div>
+              <div class="mb-3">
+                <input
                   type="email"
                   class="form-control"
                   id="exampleInputEmail1"
@@ -74,12 +83,11 @@ export default function Login() {
                   placeholder="Enter your password"
                 ></input>
               </div>
-              <h4>Forget Password ?</h4>
               <button type="submit" class="btn btn-primary">
-                Login
+                Sign Up
               </button>
               <h1>
-                Don’t have an account?<label htmlFor="">Let’s Sign Up</label>{" "}
+                Already have an account? <label htmlFor="">Let’s Login</label>{" "}
               </h1>
             </form>
           </div>
