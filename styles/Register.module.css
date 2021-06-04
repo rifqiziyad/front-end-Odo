@@ -4,7 +4,6 @@
 
 .colLeft,
 .colRight {
-  border: black solid 1px;
   height: 100vh;
   font-family: "Nunito Sans", sans-serif;
   box-sizing: border-box;
