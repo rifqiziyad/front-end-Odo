@@ -74,6 +74,12 @@
   color: rgba(58, 61, 66, 0.8);
   margin: 30px;
 }
+
+.colRight label:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .colRight h1 label {
   color: #6379f4;
 }

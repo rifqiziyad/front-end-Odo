@@ -50,11 +50,26 @@
   font-weight: 700;
 }
 
-.colRight input {
+/* .colRight input {
   border: none;
-  border-bottom: black solid 1px;
+  border: black solid 1px;
   border-radius: 0;
-  margin: 20px 0 30px 0;
+  margin: 20px 0px 30px 0;
+  width: 35px !important;
+} */
+
+.colRight .inputPin {
+  display: flex;
+  justify-content: space-around;
+}
+
+.colRight input {
+  text-align: center;
+  width: 40px;
+}
+
+.colRight .mb-3 {
+  background-color: #6379f4;
 }
 
 .colRight h4 {

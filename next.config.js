@@ -9,6 +9,10 @@ module.exports = {
         source: "/login", //source = pengganti path
         destination: "/auth/login", // destination = awal path
       },
+      {
+        source: "/register", //source = pengganti path
+        destination: "/auth/register", // destination = awal path
+      },
     ];
   },
 };

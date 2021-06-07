@@ -1,19 +1,20 @@
 import { useState } from "react";
-import Layout from "../../../components/Layout";
-import styles from "../../../styles/Login.module.css";
+import Layout from "../../components/layout";
+import styles from "../../styles/Pin.module.css";
 import { useRouter } from "next/router";
-import Cookie, { set } from "js-cookie";
-import { unauthPage } from "../../../middleware/authorizationPage";
+import Cookie from "js-cookie";
+import { unauthPage } from "../../middleware/authorizationPage";
 import Image from "next/image";
-import axiosApiIntances from "../../../utils/axios";
+// import axiosApiIntances from "../../../utils/axios";
 import Swal from "sweetalert2";
+// import pincodeInput from "bootstrap-pincode-input";
 
-export async function getServerSideProps(context) {
-  await unauthPage(context);
-  return { props: {} };
-}
+// export async function getServerSideProps(context) {
+//   await unauthPage(context);
+//   return { props: {} };
+// }
 
-export default function Login() {
+export default function Pin() {
   const router = useRouter();
   const [form, setForm] = useState({ userEmail: "", userPassword: "" });
 
@@ -47,7 +48,7 @@ export default function Login() {
   };
 
   return (
-    <Layout title="Login">
+    <Layout title="Pin">
       <div className={`container-fluid ${styles.container}`}>
         <div className="row">
           <div className={`col-7 ${styles.colLeft}`}>
@@ -68,48 +69,44 @@ export default function Login() {
           </div>
           <div className={`col-5 ${styles.colRight}`}>
             <h2>
-              Start Accessing Banking Needs With All Devices and All Platforms
-              With 30.000+ Users
+              Secure Your Account, Your Wallet, and Your Data With 6 Digits PIN
+              That You Created Yourself.
             </h2>
             <h6>
-              Transfering money is eassier than ever, you can access Zwallet
-              wherever you are. Desktop, laptop, mobile phone? we cover all of
-              that for you!
+              Create 6 digits pin to secure all your money and your data in
+              Zwallet app. Keep it secret and don’t tell anyone about your
+              Zwallet account password and the PIN.
             </h6>
             <form onSubmit={handleLogin}>
-              <div className="mb-3">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter your e-mail"
-                  required
-                  name="userEmail"
-                  value={form.userEmail}
-                  onChange={changeText}
-                ></input>
-              </div>
-              <div className="mb-3">
+              <div className={`mb-3 ${styles.inputPin}`}>
                 <input
                   type="password"
                   className="form-control"
-                  id="exampleInputPassword1"
-                  placeholder="Enter your password"
                   required
-                  name="userPassword"
-                  value={form.userPassword}
-                  onChange={changeText}
+                  maxLength="1"
+                ></input>
+                <input
+                  type="password"
+                  className="form-control"
+                  required
+                  maxLength="1"
+                ></input>
+                <input
+                  type="password"
+                  className="form-control"
+                  required
+                  maxLength="1"
+                ></input>
+                <input
+                  type="password"
+                  className="form-control"
+                  required
+                  maxLength="1"
                 ></input>
               </div>
-              <h4>Forget Password ?</h4>
               <button type="submit" className="btn btn-primary">
-                Login
+                Confirm
               </button>
-              <h1>
-                Don’t have an account?
-                <label onClick={handleRegister}>Let’s Sign Up</label>{" "}
-              </h1>
             </form>
           </div>
         </div>

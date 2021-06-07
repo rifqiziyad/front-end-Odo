@@ -5,27 +5,52 @@ import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 import { unauthPage } from "../../../middleware/authorizationPage";
 import Image from "next/image";
+import Swal from "sweetalert2";
+import axiosApiIntances from "../../../utils/axios";
 
 export async function getServerSideProps(context) {
   await unauthPage(context);
   return { props: {} };
 }
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
-  const [form, setForm] = useState({ userEmail: "", userPassword: "" });
+  const [form, setForm] = useState({
+    userName: "",
+    userEmail: "",
+    userPassword: "",
+  });
 
-  const handleLogin = (event) => {
+  const handleRegister = (event) => {
     event.preventDefault();
-    const data = {
-      user_id: 1,
-    };
-    // proses axios
-    Cookie.set("token", "TestingToken", { expires: 7, secure: true });
-    Cookie.set("user", data.user_id, { expires: 7, secure: true });
-    router.push("/");
+    axiosApiIntances
+      .post("/auth/register", form)
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: res.data.msg,
+        });
+        console.log(res);
+        router.push("/login");
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "warning",
+          title: err.response.data.msg,
+        });
+      });
   };
 
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
+  const changeText = (event) => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
   return (
     <Layout title="Register">
       <div className={`container-fluid ${styles.container}`}>
@@ -56,38 +81,49 @@ export default function Login() {
               wherever you are. Desktop, laptop, mobile phone? we cover all of
               that for you!
             </h6>
-            <form>
-              <div class="mb-3">
+            <form onSubmit={handleRegister}>
+              <div className="mb-3">
                 <input
                   type="text"
-                  class="form-control"
-                  id="exampleInputEmail1"
+                  className="form-control"
                   aria-describedby="emailHelp"
                   placeholder="Enter your username"
+                  required
+                  name="userName"
+                  value={form.userName}
+                  onChange={(event) => changeText(event)}
                 ></input>
               </div>
-              <div class="mb-3">
+              <div className="mb-3">
                 <input
                   type="email"
-                  class="form-control"
-                  id="exampleInputEmail1"
+                  className="form-control"
                   aria-describedby="emailHelp"
                   placeholder="Enter your e-mail"
+                  required
+                  name="userEmail"
+                  value={form.userEmail}
+                  onChange={(event) => changeText(event)}
                 ></input>
               </div>
-              <div class="mb-3">
+              <div className="mb-3">
                 <input
                   type="password"
-                  class="form-control"
+                  className="form-control"
                   id="exampleInputPassword1"
                   placeholder="Enter your password"
+                  required
+                  name="userPassword"
+                  value={form.userPassword}
+                  onChange={(event) => changeText(event)}
                 ></input>
               </div>
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Sign Up
               </button>
               <h1>
-                Already have an account? <label htmlFor="">Let’s Login</label>{" "}
+                Already have an account?{" "}
+                <label onClick={handleRegister}> Let’s Login</label>{" "}
               </h1>
             </form>
           </div>
