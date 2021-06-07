@@ -3,7 +3,8 @@
 }
 
 .colLeft,
-.colRight {
+.colRight,
+.colRight2 {
   height: 100vh;
   font-family: "Nunito Sans", sans-serif;
   box-sizing: border-box;
@@ -50,14 +51,6 @@
   font-weight: 700;
 }
 
-/* .colRight input {
-  border: none;
-  border: black solid 1px;
-  border-radius: 0;
-  margin: 20px 0px 30px 0;
-  width: 35px !important;
-} */
-
 .colRight .inputPin {
   display: flex;
   justify-content: space-around;
@@ -66,6 +59,12 @@
 .colRight input {
   text-align: center;
   width: 40px;
+}
+
+.colRight input::-webkit-outer-spin-button,
+.colRight input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .colRight .mb-3 {
@@ -97,4 +96,26 @@
 .colRight label:hover {
   font-weight: bold;
   cursor: pointer;
+}
+
+.colRight2 {
+  padding: 80px;
+  text-align: center;
+}
+
+.colRight2 img {
+  width: 20%;
+}
+
+.colRight2 h2,
+.colRight2 h6 {
+  text-align: left;
+  margin: 40px 0 20px 0;
+}
+
+.colRight2 button {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #6379f4;
+  border: none;
 }

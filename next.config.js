@@ -13,6 +13,10 @@ module.exports = {
         source: "/register", //source = pengganti path
         destination: "/auth/register", // destination = awal path
       },
+      {
+        source: "/transfer",
+        destination: "/transfer/transfer",
+      },
     ];
   },
 };

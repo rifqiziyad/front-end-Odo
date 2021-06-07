@@ -1,0 +1,44 @@
+.sideLeft {
+  font-family: Nunito Sans;
+  margin: 0;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 25px;
+  background: #ffffff;
+}
+
+.sideLeft {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0;
+}
+
+.sideLeft label {
+  margin: 20px 20px;
+  padding: 0 50px;
+}
+
+.sideLeft label:hover {
+  border-left: #6379f4 solid 4px;
+}
+
+.sideLeft label:hover text {
+  color: #6379f4;
+}
+
+.sideLeft text {
+  font-size: 18px;
+  font-weight: 900;
+  color: rgba(58, 61, 66, 0.8);
+}
+
+.sideLeft img {
+  margin-right: 10px;
+}
+
+.sideLeft .logout {
+  margin-top: 43px;
+}
+
+.sideRight {
+  padding: 40px 50px;
+}

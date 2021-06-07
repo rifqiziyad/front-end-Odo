@@ -25,7 +25,10 @@ export default function Login() {
       .then((res) => {
         router.push("/");
         Cookie.set("token", res.data.data.token, { expires: 7, secure: true });
-        Cookie.set("user", res.data.data.user_id, { expires: 7, secure: true });
+        Cookie.set("user_id", res.data.data.user_id, {
+          expires: 7,
+          secure: true,
+        });
       })
       .catch((err) => {
         Swal.fire({

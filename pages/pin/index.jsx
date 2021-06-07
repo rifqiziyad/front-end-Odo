@@ -3,46 +3,53 @@ import Layout from "../../components/layout";
 import styles from "../../styles/Pin.module.css";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
-import { unauthPage } from "../../middleware/authorizationPage";
 import Image from "next/image";
-// import axiosApiIntances from "../../../utils/axios";
+import axiosApiIntances from "../../utils/axios";
 import Swal from "sweetalert2";
-// import pincodeInput from "bootstrap-pincode-input";
-
-// export async function getServerSideProps(context) {
-//   await unauthPage(context);
-//   return { props: {} };
-// }
 
 export default function Pin() {
   const router = useRouter();
-  const [form, setForm] = useState({ userEmail: "", userPassword: "" });
+  const [userPin, setUserPin] = useState({});
+  const [numIndex] = useState([1, 2, 3, 4, 5, 6]);
+  const [isSuccess, setIsSuccess] = useState(true);
 
-  const handleLogin = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
+    const allPin =
+      userPin.pin1 +
+      userPin.pin2 +
+      userPin.pin3 +
+      userPin.pin4 +
+      userPin.pin5 +
+      userPin.pin6;
+
+    setUserPin({
+      userPin: allPin,
+    });
+
     // proses axios
     axiosApiIntances
-      .post("/auth/login", form)
+      .patch(`user/pin/${Cookie.get("user_id")}`, userPin)
       .then((res) => {
-        router.push("/");
-        Cookie.set("token", res.data.data.token, { expires: 7, secure: true });
-        Cookie.set("user", res.data.data.user_id, { expires: 7, secure: true });
+        console.log(res);
+        setIsSuccess({
+          isSuccess: false,
+        });
       })
       .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: err.response.data.msg,
-        });
+        console.log(err.response.data.msg);
       });
   };
 
-  const handleRegister = () => {
-    router.push("/register");
+  console.log(isSuccess);
+
+  const handleLogin = () => {
+    router.push("/login");
   };
 
   const changeText = (event) => {
-    setForm({
-      ...form,
+    setUserPin({
+      ...userPin,
       [event.target.name]: event.target.value,
     });
   };
@@ -67,48 +74,58 @@ export default function Pin() {
               users coverage.
             </p>
           </div>
-          <div className={`col-5 ${styles.colRight}`}>
-            <h2>
-              Secure Your Account, Your Wallet, and Your Data With 6 Digits PIN
-              That You Created Yourself.
-            </h2>
-            <h6>
-              Create 6 digits pin to secure all your money and your data in
-              Zwallet app. Keep it secret and don’t tell anyone about your
-              Zwallet account password and the PIN.
-            </h6>
-            <form onSubmit={handleLogin}>
-              <div className={`mb-3 ${styles.inputPin}`}>
-                <input
-                  type="password"
-                  className="form-control"
-                  required
-                  maxLength="1"
-                ></input>
-                <input
-                  type="password"
-                  className="form-control"
-                  required
-                  maxLength="1"
-                ></input>
-                <input
-                  type="password"
-                  className="form-control"
-                  required
-                  maxLength="1"
-                ></input>
-                <input
-                  type="password"
-                  className="form-control"
-                  required
-                  maxLength="1"
-                ></input>
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Confirm
+          {isSuccess ? (
+            <div className={`col-5 ${styles.colRight}`}>
+              <h2>
+                Secure Your Account, Your Wallet, and Your Data With 6 Digits
+                PIN That You Created Yourself.
+              </h2>
+              <h6>
+                Create 6 digits pin to secure all your money and your data in
+                Zwallet app. Keep it secret and don’t tell anyone about your
+                Zwallet account password and the PIN.
+              </h6>
+              <form onSubmit={handleSubmit}>
+                <div className={`mb-3 ${styles.inputPin}`}>
+                  {numIndex.map((item, index) => {
+                    return (
+                      <input
+                        key={index}
+                        type="password"
+                        className="form-control"
+                        name={`pin${item}`}
+                        required
+                        maxLength="1"
+                        onChange={changeText}
+                        pattern="[0-9]"
+                        title="Can only enter number"
+                      ></input>
+                    );
+                  })}
+                </div>
+                <button type="submit" className="btn btn-primary">
+                  Confirm
+                </button>
+              </form>
+            </div>
+          ) : (
+            <div className={`col-5 ${styles.colRight2}`}>
+              <img src="/success.png" alt="" />
+              <h2>Your PIN Was Successfully Created</h2>
+              <h6>
+                Your PIN was successfully created and you can now access all the
+                features in Zwallet. Login to your new account and start
+                exploring!
+              </h6>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                onClick={handleLogin}
+              >
+                Login Now
               </button>
-            </form>
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </Layout>

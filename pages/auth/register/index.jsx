@@ -26,12 +26,16 @@ export default function Register() {
     axiosApiIntances
       .post("/auth/register", form)
       .then((res) => {
+        Cookie.set("user_id", res.data.data.id, {
+          expires: 7,
+          secure: true,
+        });
         Swal.fire({
           icon: "success",
           title: res.data.msg,
         });
         console.log(res);
-        router.push("/login");
+        router.push("/pin");
       })
       .catch((err) => {
         Swal.fire({
@@ -123,7 +127,7 @@ export default function Register() {
               </button>
               <h1>
                 Already have an account?{" "}
-                <label onClick={handleRegister}> Let’s Login</label>{" "}
+                <label onClick={handleLogin}> Let’s Login</label>{" "}
               </h1>
             </form>
           </div>
