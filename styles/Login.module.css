@@ -83,3 +83,14 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 768px) {
+  .colLeft {
+    display: none;
+  }
+
+  .colRight {
+    padding: 50px 40px;
+    width: 100%;
+  }
+}

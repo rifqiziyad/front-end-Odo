@@ -119,3 +119,22 @@
   background-color: #6379f4;
   border: none;
 }
+
+@media only screen and (max-width: 768px) {
+  .colLeft {
+    display: none;
+  }
+
+  .colRight {
+    padding: 100px 40px;
+    width: 100%;
+  }
+
+  .colRight h2 {
+    font-size: 20px;
+  }
+
+  .colRight h6 {
+    font-size: 13px;
+  }
+}

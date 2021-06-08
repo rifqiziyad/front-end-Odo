@@ -34,7 +34,6 @@ export default function Register() {
           icon: "success",
           title: res.data.msg,
         });
-        console.log(res);
         router.push("/pin");
       })
       .catch((err) => {

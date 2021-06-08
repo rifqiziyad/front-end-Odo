@@ -83,3 +83,14 @@
 .colRight h1 label {
   color: #6379f4;
 }
+
+@media only screen and (max-width: 768px) {
+  .colLeft {
+    display: none;
+  }
+
+  .colRight {
+    padding: 50px 40px;
+    width: 100%;
+  }
+}

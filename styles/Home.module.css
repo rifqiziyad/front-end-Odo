@@ -3,7 +3,7 @@
 }
 
 .container {
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0 !important;
 }
 
@@ -20,56 +20,119 @@
   margin: 0;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
   border-radius: 25px;
-  background: #ffffff;
+  background: #f3f5f5;
 }
 
-.sideRight {
-  padding: 40px 50px;
+.col12 {
+  padding: 0;
+  color: white;
 }
 
-.sideRight h5 {
+.balance h2 {
+  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.col {
+  background: #6379f4;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+}
+
+.button button img {
+  margin-right: 5px;
+}
+
+.button button {
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 20px;
+}
+
+.button1 {
+  margin-bottom: 30px;
+}
+
+.info,
+.history {
+  padding: 30px 20px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 25px;
+}
+
+.row2 {
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.info p {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 14px;
+  color: #6a6a6a;
+}
+
+.info h5 {
   font-weight: bold;
   font-size: 18px;
   color: #3a3d42;
 }
 
-.sideRight input {
-  outline: none;
-  width: 100%;
-  margin: 20px 0;
-  background: rgba(58, 61, 66, 0.1);
-  border-radius: 12px;
-  padding: 10px 30px;
-  border: none;
+.history {
+  width: 290px;
+  background-color: white;
 }
 
-.sideRight .outputSearch {
+.history .nav {
   display: flex;
-  align-items: center;
-  /* border: black solid 1px; */
-  padding: 20px 0;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.outputSearch img {
-  width: 60px;
-  height: 60px;
-  background-blend-mode: normal;
-  border-radius: 10px;
-  margin-right: 30px;
-}
-
-.outputSearch .col {
-  display: flex;
-  flex-direction: column;
-}
-
-.outputSearch text {
+.history h4 {
   font-weight: bold;
   font-size: 18px;
-  color: #4d4b57;
+  color: #3a3d42;
 }
 
-.outputSearch label {
-  font-size: 16px;
-  color: #7a7886;
+.history label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #6379f4;
+}
+
+.history h3 {
+  text-align: center;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+  .row {
+    padding: 20px 0;
+  }
+
+  .info {
+    width: 100%;
+  }
+
+  .history {
+    width: 100%;
+  }
 }

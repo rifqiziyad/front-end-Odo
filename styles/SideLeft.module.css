@@ -42,3 +42,17 @@
 .sideRight {
   padding: 40px 50px;
 }
+
+@media only screen and (max-width: 768px) {
+  .sideLeft label {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sideLeft text {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+}

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../../components/layout";
 import styles from "../../styles/Pin.module.css";
 import { useRouter } from "next/router";
-import Cookie from "js-cookie";
+import Cookie, { set } from "js-cookie";
 import Image from "next/image";
 import axiosApiIntances from "../../utils/axios";
 import Swal from "sweetalert2";
+import { authPage } from "../../middleware/authorizationPage";
 
 export default function Pin() {
   const router = useRouter();
@@ -23,34 +24,49 @@ export default function Pin() {
       userPin.pin5 +
       userPin.pin6;
 
-    setUserPin({
-      userPin: allPin,
-    });
-
     // proses axios
     axiosApiIntances
-      .patch(`user/pin/${Cookie.get("user_id")}`, userPin)
+      .patch(`user/pin/${Cookie.get("user_id")}`, { userPin: allPin })
       .then((res) => {
-        console.log(res);
-        setIsSuccess({
-          isSuccess: false,
-        });
+        Swal.showLoading(Swal.getDenyButton());
       })
       .catch((err) => {
         console.log(err.response.data.msg);
+      })
+      .finally((res) => {
+        setTimeout(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Success Create Pin",
+            confirmButtonText: "Login Now",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              router.push("/login");
+            }
+          });
+        }, 1000);
       });
   };
-
-  console.log(isSuccess);
 
   const handleLogin = () => {
     router.push("/login");
   };
 
+  useEffect;
+
   const changeText = (event) => {
+    if (event.target.value) {
+      const nextSibling = document.querySelector(
+        `input[name='${parseInt(event.target.name, 10) + 1}']`
+      );
+
+      if (nextSibling !== null) {
+        nextSibling.focus();
+      }
+    }
     setUserPin({
       ...userPin,
-      [event.target.name]: event.target.value,
+      [`pin${event.target.name}`]: event.target.value,
     });
   };
 
@@ -93,7 +109,7 @@ export default function Pin() {
                         key={index}
                         type="password"
                         className="form-control"
-                        name={`pin${item}`}
+                        name={item}
                         required
                         maxLength="1"
                         onChange={changeText}
