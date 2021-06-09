@@ -52,7 +52,7 @@ export default function Home(props) {
                 <div className={styles.col}>
                   <div className={styles.balance}>
                     <p>Balance</p>
-                    <h2>Rp.{props.user[0].user_balance}</h2>
+                    <h2>Rp{props.user[0].user_balance}</h2>
                     <h6>{props.user[0].user_phone}</h6>
                   </div>
                   <div className={styles.button} onClick={handleTransfer}>

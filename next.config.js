@@ -17,6 +17,10 @@ module.exports = {
         source: "/transfer",
         destination: "/transfer/transfer",
       },
+      {
+        source: "/confirmation",
+        destination: "/transfer/confirmation",
+      },
     ];
   },
 };

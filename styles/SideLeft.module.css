@@ -14,7 +14,7 @@
 
 .sideLeft label {
   margin: 20px 20px;
-  padding: 0 50px;
+  padding: 0 40px;
 }
 
 .sideLeft label:hover {
@@ -49,10 +49,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 20%;
   }
 
   .sideLeft text {
     font-size: 15px;
     margin-top: 10px;
+  }
+
+  .sideLeft {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .sideLeft .logout {
+    margin: 20px;
+  }
+
+  .col3 {
+    width: 100%;
   }
 }

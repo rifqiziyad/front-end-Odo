@@ -47,19 +47,19 @@ export default function Navbar(props) {
         <div className={`row ${styles.row1}`}>
           <div className={`col-4 ${styles.col1}`}>Odo</div>
           <div className={`col-4 ${styles.col2}`}>
-            {props.user[0].user_image ? (
+            {/* {props.user[0].user_image ? (
               <img
                 src={`http://localhost:3004/backend4/api/${props.user[0].user_image}`}
                 alt=""
               />
-            ) : (
-              <img src="/img-profile.png" alt="" />
-            )}
+            ) : ( */}
+            <img src="/img-profile.png" alt="" />
+            {/* )} */}
 
             <div>
               {/* <h5>{userData[0].user_name}</h5> */}
-              <h5>{props.user[0].user_name}</h5>
-              <h6>{props.user[0].user_phone}</h6>
+              {/* <h5>{props.user[0].user_name}</h5>
+              <h6>{props.user[0].user_phone}</h6> */}
             </div>
             <img className={styles.imgBell} src="/bell.png" alt="" />
           </div>
