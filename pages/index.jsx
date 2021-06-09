@@ -7,22 +7,39 @@ import { authPage } from "../middleware/authorizationPage";
 import Footer from "../components/module/Footer";
 import Link from "next/link";
 import SideLeft from "../components/module/SideLeft";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
 
+  const res = await axiosApiIntances
+    .get(`/user/${data.user_id}`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch(() => {
+      return [];
+    });
+
   return {
-    props: {}, // will be passed to the page component as props
+    props: { user: res }, // will be passed to the page component as props
   };
 }
 
 export default function Home(props) {
-  console.log(props);
-  const [users, setUsers] = useState(props.users);
+  const router = useRouter();
+
+  const handleTransfer = () => {
+    router.push("/transfer");
+  };
+
+  const handleTopup = () => {
+    console.log("topup");
+  };
 
   return (
     <Layout title="Home">
-      <Navbar />
+      <Navbar {...props} />
       <div className={styles.container}>
         <div className={`row ${styles.row}`}>
           <SideLeft />
@@ -35,16 +52,16 @@ export default function Home(props) {
                 <div className={styles.col}>
                   <div className={styles.balance}>
                     <p>Balance</p>
-                    <h2>Rp.120.000</h2>
-                    <h6>0834894257</h6>
+                    <h2>Rp.{props.user[0].user_balance}</h2>
+                    <h6>{props.user[0].user_phone}</h6>
                   </div>
-                  <div className={styles.button}>
+                  <div className={styles.button} onClick={handleTransfer}>
                     <button className={`btn btn-light ${styles.button1}`}>
                       <img src="/icon-transfer.png" alt="" />
                       Transfer
                     </button>
 
-                    <button class="btn btn-light">
+                    <button class="btn btn-light" onClick={handleTopup}>
                       <img src="/icon-topup.png" alt="" />
                       Top Up
                     </button>

@@ -20,8 +20,18 @@ export async function getServerSideProps(context) {
     .catch(() => {
       return [];
     });
+
+  const resUserById = await axiosApiIntances
+    .get(`/user/${data.user_id}`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch(() => {
+      return [];
+    });
+
   return {
-    props: { receiverData: res }, // will be passed to the page component as props
+    props: { receiverData: res, user: resUserById }, // will be passed to the page component as props
   };
 }
 
@@ -60,7 +70,7 @@ export default function Home(props) {
   return (
     <Layout title="Trasfer">
       <div className={styles.container}>
-        <Navbar />
+        <Navbar {...props} />
         <div className={`row ${styles.row}`}>
           <SideLeft />
           <div className={`col-8 ${styles.sideRight}`}>

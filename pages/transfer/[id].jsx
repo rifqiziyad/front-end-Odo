@@ -14,8 +14,6 @@ export async function getServerSideProps(context) {
   const data = await authPage(context);
   const { id } = context.query;
 
-  console.log(id);
-
   const res = await axiosApiIntances
     .get(`/user/${id}`)
     .then((res) => {
@@ -24,29 +22,72 @@ export async function getServerSideProps(context) {
     .catch((err) => {
       return [];
     });
+
+  const resUserById = await axiosApiIntances
+    .get(`/user/${data.user_id}`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch(() => {
+      return [];
+    });
   return {
-    props: { receiverData: res }, // will be passed to the page component as props
+    props: { receiverData: res, user: resUserById }, // will be passed to the page component as props
   };
 }
 
 export default function Home(props) {
   const router = useRouter();
+  const [balance, setBalance] = useState();
 
   const handleSubmit = () => {
-    Swal.showLoading(Swal.getDenyButton());
-    setTimeout(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Berhasil DiTransfer",
+    const toInt = parseInt(props.user[0].user_balance);
+    const userBalance = toInt - balance.balance;
+
+    // proses axios
+    axiosApiIntances
+      .patch(`user/balance/${Cookies.get("user_id")}`, { userBalance })
+      .then((res) => {
+        Swal.showLoading(Swal.getDenyButton());
+      })
+      .catch((err) => {
+        console.log(err.response.data.msg);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Success Transfer",
+            confirmButtonText: "Ok",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              router.push("/");
+            }
+          });
+        }, 1000);
       });
-      router.push("/");
-    }, 2000);
+
+    // Swal.showLoading(Swal.getDenyButton());
+    // setTimeout(() => {
+    //   Swal.fire({
+    //     icon: "success",
+    //     title: "Berhasil Transfer",
+    //   });
+    //   router.push("/");
+    // }, 2000);
+  };
+
+  const changeText = (event) => {
+    setBalance({
+      ...balance,
+      balance: parseInt(event.target.value),
+    });
   };
 
   return (
     <Layout title="Trasfer">
       <div className={styles.container}>
-        <Navbar />
+        <Navbar {...props} />
         <div className={`row ${styles.row}`}>
           <SideLeft />
           <div className={`col-8 ${styles.sideRight}`}>
@@ -67,7 +108,9 @@ export default function Home(props) {
                 className={styles.number}
                 type="number"
                 placeholder="0.00"
+                name="inputNumber"
                 required
+                onChange={changeText}
               />
               <input type="text" placeholder="Add some notes" />
             </div>

@@ -33,7 +33,7 @@ export default function Pin() {
       .catch((err) => {
         console.log(err.response.data.msg);
       })
-      .finally((res) => {
+      .finally(() => {
         setTimeout(() => {
           Swal.fire({
             icon: "success",

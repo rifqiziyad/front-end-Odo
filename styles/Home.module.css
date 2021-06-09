@@ -135,4 +135,20 @@
   .history {
     width: 100%;
   }
+
+  .balance h2 {
+    font-size: 20px;
+  }
+
+  .balance p {
+    font-size: 13px;
+  }
+
+  .balance h6 {
+    font-size: 14px;
+  }
+
+  .button button {
+    padding: 10px;
+  }
 }
