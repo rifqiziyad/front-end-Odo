@@ -42,7 +42,6 @@
 .sideRight .outputSearch {
   display: flex;
   align-items: center;
-  /* border: black solid 1px; */
   padding: 20px 0;
 }
 
@@ -70,6 +69,8 @@
   color: #7a7886;
 }
 
+/* INPUT AMOUNT */
+
 .inputAmount {
   display: flex;
   align-items: center;
@@ -89,15 +90,23 @@
   margin-right: 30px;
 }
 
-.sideRight h3 {
+.sideRight h1 {
   font-size: 16px;
   color: #7a7886;
+  text-align: start;
+  width: 50%;
 }
 
 .inputMoney {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.inputMoney h3 {
+  font-weight: bold;
+  font-size: 16px;
+  color: #3a3d42;
 }
 
 .inputMoney input[type="text"] {
@@ -130,7 +139,7 @@
   justify-content: flex-end;
 }
 
-.button button {
+form .button button {
   background: #6379f4;
   box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
   border-radius: 12px;
@@ -138,11 +147,17 @@
   padding: 10px 50px;
 }
 
-/* DETAILS */
+/* INPUT AMOUNT */
+
+/* CONFIRMATION */
+
+.details {
+  text-align: start;
+}
 
 .details h6 {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 24px;
   color: #3a3d42;
   margin: 40px 0 50px 0;
 }
@@ -186,15 +201,19 @@
   margin: 0 0 30px 0;
 }
 
-.colRight button {
+.colRight .button {
   width: 50%;
   background-color: #6379f4;
 }
 
-.colRight .button {
-  margin-top: 50px;
+.sideRight .button .btn {
+  background: #6379f4;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  border-radius: 12px;
   display: flex;
   justify-content: flex-end;
+  border: none;
+  padding: 10px 50px;
 }
 
 .colRight h1 {
@@ -212,7 +231,14 @@
   cursor: pointer;
 }
 
-/* DETAILS */
+.colRight .button {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* CONFIRMATION */
 
 /* SUCCESS */
 
@@ -233,15 +259,15 @@
   padding: 10px;
 }
 
-.button button.btn {
-  padding: 0 20px;
-}
-
 .button .btnPdf {
   background: rgba(99, 121, 244, 0.15);
   box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
   border-radius: 12px;
-  color: #6379f4;
+  color: white;
+}
+
+.sideRight .button button:hover {
+  background-color: rgb(15, 91, 233);
 }
 
 /* SUCCESS */

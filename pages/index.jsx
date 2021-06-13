@@ -39,7 +39,7 @@ export default function Home(props) {
 
   return (
     <Layout title="Home">
-      <Navbar {...props} />
+      <Navbar />
       <div className={styles.container}>
         <div className={`row ${styles.row}`}>
           <SideLeft />
@@ -61,7 +61,7 @@ export default function Home(props) {
                       Transfer
                     </button>
 
-                    <button class="btn btn-light" onClick={handleTopup}>
+                    <button className="btn btn-light" onClick={handleTopup}>
                       <img src="/icon-topup.png" alt="" />
                       Top Up
                     </button>
@@ -87,7 +87,26 @@ export default function Home(props) {
                   <h4>Transaction History</h4>
                   <label>See all</label>
                 </div>
-                <h3>No History</h3>
+                <div className={styles.historyCol}>
+                  <div className={styles.myHistory}>
+                    <img src="/icon-default.png" alt="" />
+                    <div className={styles.colHistory}>
+                      <text>Rifqi Ziyad Imtinam</text>
+                      <label>Transfer</label>
+                    </div>
+                  </div>
+                  <h2>+250000</h2>
+                </div>
+                <div className={styles.historyCol}>
+                  <div className={styles.myHistory}>
+                    <img src="/icon-default.png" alt="" />
+                    <div className={styles.colHistory}>
+                      <text>Rifqi Ziyad Imtinam</text>
+                      <label>Transfer</label>
+                    </div>
+                  </div>
+                  <h3>-250000</h3>
+                </div>
               </div>
             </div>
           </div>

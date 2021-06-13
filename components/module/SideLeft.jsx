@@ -30,24 +30,34 @@ function SideLeft(props) {
       <div className={`col-3 ${styles.col3}`}>
         <div className={`col-12 ${styles.sideLeft}`}>
           <label onClick={handleDashboard}>
-            <img src="/icon-dashboard.png" alt="" />
-            <text>Dashboard</text>
+            <div>
+              <img src="/icon-dashboard.png" alt="" />
+              <text>Dashboard</text>
+            </div>
           </label>
           <label onClick={handleTransfer}>
-            <img src="/icon-transfer.png" alt="" />
-            <text>Transfer</text>
+            <div>
+              <img src="/icon-transfer.png" alt="" />
+              <text>Transfer</text>
+            </div>
           </label>
           <label onClick={handleTopup}>
-            <img src="/icon-topup.png" alt="" />
-            <text>Top Up</text>
+            <div>
+              <img src="/icon-topup.png" alt="" />
+              <text>Top Up</text>
+            </div>
           </label>
           <label onClick={handleProfile}>
-            <img src="/icon-profile.png" alt="" />
-            <text>Profile</text>
+            <div>
+              <img src="/icon-profile.png" alt="" />
+              <text>Profile</text>
+            </div>
           </label>
           <label className={styles.logout} onClick={handleLogout}>
-            <img src="/icon-logout.png" alt="" />
-            <text>Logout</text>
+            <div>
+              <img src="/icon-logout.png" alt="" />
+              <text>Logout</text>
+            </div>
           </label>
         </div>
       </div>

@@ -2,11 +2,13 @@
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useEffect } from "react";
+import axiosApiIntances from "utils/axios";
 import styles from "../../styles/NavbarFooter.module.css";
-import axiosApiIntances from "../../utils/axios";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
+
+  console.log(data);
 
   const res = await axiosApiIntances
     .get(`/user/${data.user_id}`)
@@ -25,20 +27,12 @@ export async function getServerSideProps(context) {
 export default function Navbar(props) {
   const [userData, setUserData] = useState();
 
-  const getDataUser = () => {
-    axiosApiIntances
-      .get(`/user/${Cookies.get("user_id")}`)
-      .then((res) => {
-        setUserData(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data.msg);
-      });
-  };
-
-  // useEffect(() => {
-  //   getDataUser();
-  // }, []);
+  useEffect(() => {
+    axiosApiIntances.get(`/user/${Cookies.get("user_id")}`).then((res) => {
+      setUserData(res.data.data[0]);
+    });
+  }, []);
+  // console.log(userData);
 
   return (
     <>

@@ -23,6 +23,10 @@
   background: #f3f5f5;
 }
 
+.sideRight {
+  width: 74%;
+}
+
 .col12 {
   padding: 0;
   color: white;
@@ -73,13 +77,14 @@
 
 .row2 {
   justify-content: space-between;
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .info {
   display: flex;
   justify-content: space-between;
   background-color: white;
+  padding: 30px 50px;
 }
 
 .info p {
@@ -96,7 +101,7 @@
 }
 
 .history {
-  width: 290px;
+  width: 40.5%;
   background-color: white;
 }
 
@@ -115,12 +120,46 @@
 .history label {
   font-weight: 600;
   font-size: 14px;
+  font-weight: 600;
+  font-size: 14px;
   color: #6379f4;
 }
 
-.history h3 {
-  text-align: center;
+.historyCol {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.historyCol .myHistory {
+  display: flex;
+}
+
+.myHistory .colHistory {
+  display: flex;
+  flex-direction: column;
+}
+
+.myHistory img {
+  margin-right: 10px;
+  background-blend-mode: normal;
+  border-radius: 10px;
+}
+
+.historyCol h2 {
   font-weight: bold;
+  font-size: 16px;
+  color: #1ec15f;
+  /* width: 36%; */
+}
+
+.historyCol h3 {
+  font-weight: bold;
+  font-size: 16px;
+  color: #ff5b37;
+  /* width: 36%; */
 }
 
 @media only screen and (max-width: 768px) {
@@ -145,6 +184,10 @@
   }
 
   .history {
+    width: 100%;
+  }
+
+  .history .myHistory {
     width: 100%;
   }
 

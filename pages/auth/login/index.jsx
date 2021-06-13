@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "../../../components/Layout";
-import styles from "../../../styles/Login.module.css";
+import styles from "styles/Login.module.css";
 import { useRouter } from "next/router";
 import Cookie, { set } from "js-cookie";
 import { unauthPage } from "../../../middleware/authorizationPage";
