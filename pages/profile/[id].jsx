@@ -1,21 +1,20 @@
 import Layout from "../../components/Layout";
 import Navbar from "../../components/module/Navbar";
 import axiosApiIntances from "../../utils/axios";
-import { useState } from "react";
 import styles from "../../styles/Profile.module.css";
 import SideLeft from "../../components/module/SideLeft";
 import Footer from "../../components/module/Footer";
+import Swal from "sweetalert2";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
   const res = await axiosApiIntances
-    .get(`users/${id}`)
+    .get(`user/${id}`)
     .then((res) => {
-      // console.log(res.data);
-      return res.data;
+      return res.data.data;
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       return {};
     });
 
@@ -25,7 +24,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Profile(props) {
-  const [user, setUser] = useState(props.user);
+  const router = useRouter();
   const profile = [
     "Personal Information",
     "Change Password",
@@ -33,23 +32,73 @@ export default function Profile(props) {
     "Logout",
   ];
 
+  const redirected = (item) => {
+    event.preventDefault();
+    if (item == "Personal Information") {
+      router.push(`/profile/personal-info/${props.user[0].user_id}`);
+    }
+    if (item == "Change Password") {
+      router.push(`/profile/change-password/${props.user[0].user_id}`);
+    }
+    if (item == "Change PIN") {
+      router.push(`/profile/change-pin/${props.user[0].user_id}`);
+    }
+    if (item == "Logout") {
+      Cookie.remove("token");
+      Cookie.remove("user_id");
+      router.push("/login");
+    }
+  };
+
+  const changeImage = () => {
+    const image = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append("image", image);
+
+    axiosApiIntances
+      .patch(`user/image/${props.user[0].user_id}`, formData)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "warning",
+          title: err.response.data.msg,
+          confirmButtonText: "Ok",
+        });
+      });
+  };
+
   return (
     <Layout title="Profile">
       <div className={styles.container}>
-        <Navbar />
+        <Navbar {...props} />
         <div className={`row ${styles.row}`}>
           <SideLeft />
           <div className={`col-8 ${styles.sideRight}`}>
-            <img src="/img-profile.png" alt="" className={styles.profile} />
-            <div className={styles.edit}>
+            {props.user[0].user_image ? (
+              <img
+                src={`http://localhost:3004/backend4/api/${props.user[0].user_image}`}
+                alt=""
+                className={styles.profile}
+              />
+            ) : (
+              <img src="/icon-default.png" alt="" className={styles.profile} />
+            )}
+            <div className={styles.edit} onChange={(e) => changeImage(e)}>
               <img src="/icon-edit.png" alt="" />
-              <label>Edit</label>
+              <input type="file" id="files" title="asdsad" />
             </div>
-            <h2>Rifqi Ziyad Imtinan</h2>
-            <h5>08394724756</h5>
+            <h2>{props.user[0].user_name}</h2>
+            <h5>{props.user[0].user_phone}</h5>
             {profile.map((item, index) => {
               return (
-                <div className={styles.info} key={index}>
+                <div
+                  className={styles.info}
+                  key={index}
+                  onClick={() => redirected(item)}
+                >
                   <h2>{item}</h2>
                   <img src="/icon-arrow-left.png" alt="" />
                 </div>

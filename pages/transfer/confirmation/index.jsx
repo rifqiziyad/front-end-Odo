@@ -154,7 +154,7 @@ export default function Confirmation(props) {
     <>
       <Layout title="Confirmation">
         <div className={styles.container}>
-          <Navbar />
+          <Navbar {...props.user} />
           <div className={`row ${styles.row}`}>
             <SideLeft />
             <div className={`col-8 ${styles.sideRight}`}>

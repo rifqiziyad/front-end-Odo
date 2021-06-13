@@ -39,7 +39,7 @@ export default function Home(props) {
 
   return (
     <Layout title="Home">
-      <Navbar />
+      <Navbar {...props} />
       <div className={styles.container}>
         <div className={`row ${styles.row}`}>
           <SideLeft />

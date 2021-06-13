@@ -1,6 +1,7 @@
 import styles from "../../styles/SideLeft.module.css";
 import Cookie from "js-cookie";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 function SideLeft(props) {
   const router = useRouter();
@@ -20,7 +21,7 @@ function SideLeft(props) {
   };
 
   const handleProfile = () => {
-    router.push("/profile");
+    router.push(`/profile/${Cookies.get("user_id")}`);
   };
   const handleTopup = () => {
     router.push("/topup");
