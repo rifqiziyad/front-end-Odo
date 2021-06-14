@@ -18,6 +18,8 @@
   background: white;
   text-align: center;
   padding: 50px 0;
+  height: 100vh;
+  box-sizing: border-box !important;
 }
 
 .sideRight .profile {
@@ -83,6 +85,13 @@
   padding: 15px 20px;
   border-radius: 10px;
   margin-top: 20px;
+  cursor: pointer;
+  box-sizing: border-box !important;
+  height: 10%;
+}
+
+.sideRight .info:hover {
+  border: rgb(158, 154, 154) solid 1px;
 }
 
 .sideRight .info h2 {

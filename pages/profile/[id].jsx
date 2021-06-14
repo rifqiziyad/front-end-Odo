@@ -6,6 +6,7 @@ import SideLeft from "../../components/module/SideLeft";
 import Footer from "../../components/module/Footer";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -44,8 +45,8 @@ export default function Profile(props) {
       router.push(`/profile/change-pin/${props.user[0].user_id}`);
     }
     if (item == "Logout") {
-      Cookie.remove("token");
-      Cookie.remove("user_id");
+      Cookies.remove("token");
+      Cookies.remove("user_id");
       router.push("/login");
     }
   };
