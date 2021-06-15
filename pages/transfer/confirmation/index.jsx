@@ -111,6 +111,8 @@ export default function Confirmation(props) {
     }
   };
 
+  console.log(props.balance);
+
   const updateUserBalance = () => {
     axiosApiIntances
       .patch(
@@ -150,6 +152,18 @@ export default function Confirmation(props) {
       });
   };
 
+  const convertToIdr = (number) => {
+    let number_string = number.toString(),
+      sisa = number_string.length % 3,
+      rupiah = number_string.substr(0, sisa),
+      ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+    if (ribuan) {
+      const separator = sisa ? "." : "";
+      return (rupiah += separator + ribuan.join("."));
+    }
+  };
+
   return (
     <>
       <Layout title="Confirmation">
@@ -169,13 +183,15 @@ export default function Confirmation(props) {
               <div className={styles.details}>
                 <h6>Details</h6>
                 <p>Amount</p>
-                <h5>Rp{props.balance}</h5>
+                <h5>Rp{convertToIdr(props.balance)}</h5>
                 <hr />
                 <p>Balance Left</p>
                 <h5>
                   Rp
-                  {parseInt(props.user[0].user_balance) -
-                    parseInt(props.balance)}
+                  {convertToIdr(
+                    parseInt(props.user[0].user_balance) -
+                      parseInt(props.balance)
+                  )}
                 </h5>
                 <hr />
                 <p>Date & time</p>

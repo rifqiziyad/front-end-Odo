@@ -56,7 +56,7 @@
   flex-direction: column;
 }
 
-.outputSearch text {
+.outputSearch h5 {
   font-weight: bold;
   font-size: 18px;
   color: #4d4b57;

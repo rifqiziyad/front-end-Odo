@@ -26,7 +26,11 @@ function Navbar(props) {
             )}
             <div>
               <h5>{props.user[0].user_name}</h5>
-              <h6>{props.user[0].user_phone}</h6>
+              {props.user[0].user_phone ? (
+                <h6>{props.user[0].user_phone}</h6>
+              ) : (
+                <h6>-</h6>
+              )}
             </div>
             <img className={styles.imgBell} src="/bell.png" alt="" />
           </div>

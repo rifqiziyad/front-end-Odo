@@ -1,0 +1,119 @@
+.container {
+  padding: 30px 120px;
+  height: 100vh;
+}
+
+.row {
+  justify-content: space-between;
+  font-family: Nunito Sans;
+}
+
+.row .navbarLeft {
+  font-weight: bold;
+  font-size: 29px;
+  color: #6379f4;
+}
+
+.row .navbarRight {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.row .navbarRight button {
+  padding: 8px 25px;
+  font-weight: bold;
+  font-size: 18px;
+  box-sizing: border-box;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  border-radius: 12px;
+}
+
+.row .navbarRight button.btnLogin {
+  font-weight: bold;
+  font-size: 18px;
+  color: #6379f4;
+  border: 2px solid #6379f4;
+  box-sizing: border-box;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  border-radius: 12px;
+}
+
+.row .navbarRight button.btnSignup {
+  color: white;
+  background: #6379f4;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  border-radius: 12px;
+}
+
+.row2 .col5 {
+  text-align: center;
+}
+
+.row2 .colSideRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.colSideRight .h4 {
+  font-family: Nunito Sans;
+  font-weight: 900;
+  font-size: 60px;
+  color: #3a3d42;
+}
+
+.colSideRight p {
+  font-size: 18px;
+  line-height: 31px;
+  color: #3a3d42;
+}
+
+.colSideRight .h4 span {
+  color: #6379f4;
+}
+
+.colSideRight .btn {
+  margin-top: 40px;
+  font-family: Nunito Sans;
+  background: #6379f4;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    padding: 20px 40px;
+  }
+
+  .row2 .col5 img {
+    width: 100%;
+  }
+
+  .colSideRight .h4 {
+    font-size: 20px;
+  }
+
+  .colSideRight p {
+    font-size: 14px;
+  }
+
+  .navbarRight {
+    width: 50%;
+  }
+
+  .row .navbarRight button {
+    padding: 2px 20px;
+    font-size: 10px;
+    width: 200px;
+  }
+
+  .row .navbarRight button.btnLogin {
+    font-weight: bold;
+    font-size: 10px;
+    margin-right: 20px;
+  }
+}

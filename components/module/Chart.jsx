@@ -6,8 +6,6 @@ function ChartHome(props) {
     return item.Total;
   });
 
-  console.log(totalData);
-
   const data = {
     labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     datasets: [

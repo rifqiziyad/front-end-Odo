@@ -98,7 +98,7 @@ export default function Home(props) {
                     )}
 
                     <div className={styles.col}>
-                      <text>{item.user_name}</text>
+                      <h5>{item.user_name}</h5>
                       <label>{item.user_phone}</label>
                     </div>
                   </div>

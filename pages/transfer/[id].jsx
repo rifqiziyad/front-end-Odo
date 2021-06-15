@@ -40,6 +40,7 @@ export default function inputAmount(props) {
   const [notes, setNotes] = useState("");
 
   const handleSubmit = (b, n) => {
+    event.preventDefault();
     router.push(
       `/transfer/confirmation?b=${b}&n=${n}&id=${props.receiverData[0].user_id}`
     );
@@ -51,6 +52,18 @@ export default function inputAmount(props) {
 
   const changeTextNotes = (event) => {
     setNotes(event.target.value);
+  };
+
+  const convertToIdr = (number) => {
+    let number_string = number.toString(),
+      sisa = number_string.length % 3,
+      rupiah = number_string.substr(0, sisa),
+      ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+    if (ribuan) {
+      const separator = sisa ? "." : "";
+      return (rupiah += separator + ribuan.join("."));
+    }
   };
 
   return (
@@ -72,7 +85,7 @@ export default function inputAmount(props) {
               Type the amount you want to transfer and then press continue to
               the next steps.
             </h1>
-            <form>
+            <form onSubmit={() => handleSubmit(balance, notes)}>
               <div className={styles.inputMoney}>
                 <input
                   className={styles.number}
@@ -81,20 +94,15 @@ export default function inputAmount(props) {
                   required
                   onChange={changeTextAmount}
                 />
-                <h3>Rp{props.user[0].user_balance} Available</h3>
+                <h3>Rp{convertToIdr(props.user[0].user_balance)} Available</h3>
                 <input
                   type="text"
                   placeholder="Add some notes"
                   onChange={changeTextNotes}
-                  required
                 />
               </div>
               <div className={styles.button}>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => handleSubmit(balance, notes)}
-                >
+                <button type="submit" className="btn btn-primary">
                   Continue
                 </button>
               </div>

@@ -9,19 +9,59 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-export async function getServerSideProps(context) {
-  const { id } = context.query;
-  const res = await axiosApiIntances
-    .get(`user/${id}`)
+export async function getStaticPaths() {
+  const users = await axiosApiIntances
+    .get("user/users/all-data")
     .then((res) => {
       return res.data.data;
     })
-    .catch(() => {
+    .catch((err) => {
+      return [];
+    });
+  const paths = users.map((item) => ({
+    params: { id: `${item.user_id}` },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context) {
+  const user = await axiosApiIntances
+    .get(`user/${context.params.id}`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {
       return {};
     });
 
+  const getTransactionByWeek = await axiosApiIntances
+    .get(`transaction/week/${context.params.id}`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {
+      return err.response.data.msg;
+    });
+
+  const getTransactionByMonth = await axiosApiIntances
+    .get(`transaction/month/${context.params.id}`)
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {
+      return err.response.data.msg;
+    });
+
   return {
-    props: { user: res },
+    props: {
+      user,
+      historyByWeek: getTransactionByWeek,
+      historyByMonth: getTransactionByMonth,
+    },
   };
 }
 
@@ -35,53 +75,66 @@ export default function History(props) {
           <div className={`col-8 ${styles.sideRightMain}`}>
             <div className={styles.sideRight}>
               <h1>Transaction History</h1>
-              <div className="byWeek">
+              <div className={styles.thisWeek}>
                 <p>This Week</p>
-
-                <div className={styles.historyCol}>
-                  <div className={styles.myHistory}>
-                    <img src="/img-profile.png" alt="" />
-                    <div className={styles.colHistory}>
-                      <h6>Rifqi</h6>
-                      <label>Transfer</label>
+                <div className={styles.byWeek}>
+                  {props.historyByWeek.map((item, index) => (
+                    <div className={styles.historyCol} key={index}>
+                      <div className={styles.myHistory}>
+                        {item.user[0].user_image ? (
+                          <img
+                            src={`http://localhost:3004/backend4/api/${props.user[0].user_image}`}
+                            alt=""
+                          />
+                        ) : (
+                          <img src="/icon-default.png" alt="" />
+                        )}
+                        <div className={styles.colHistory}>
+                          <h6>{item.user[0].user_name}</h6>
+                          <label>Transfer</label>
+                        </div>
+                      </div>
+                      {item.transaction_receiver_id == props.user[0].user_id ? (
+                        <h2>+{item.transaction_amount}</h2>
+                      ) : (
+                        <h2 className={styles.minus}>
+                          -{item.transaction_amount}
+                        </h2>
+                      )}
                     </div>
-                  </div>
-                  <h2>+250000</h2>
-                </div>
-                <div className={styles.historyCol}>
-                  <div className={styles.myHistory}>
-                    <img src="/img-profile.png" alt="" />
-                    <div className={styles.colHistory}>
-                      <h6>Rifqi</h6>
-                      <label>Transfer</label>
-                    </div>
-                  </div>
-                  <h2>+250000</h2>
+                  ))}
                 </div>
               </div>
 
-              <div className="byWeek">
+              <div className={styles.thisMonth}>
                 <p>This Month</p>
 
-                <div className={styles.historyCol}>
-                  <div className={styles.myHistory}>
-                    <img src="/img-profile.png" alt="" />
-                    <div className={styles.colHistory}>
-                      <h6>Rifqi</h6>
-                      <label>Transfer</label>
+                <div className={styles.byMonth}>
+                  {props.historyByMonth.map((item, index) => (
+                    <div className={styles.historyCol} key={index}>
+                      <div className={styles.myHistory}>
+                        {item.user[0].user_image ? (
+                          <img
+                            src={`http://localhost:3004/backend4/api/${props.user[0].user_image}`}
+                            alt=""
+                          />
+                        ) : (
+                          <img src="/icon-default.png" alt="" />
+                        )}
+                        <div className={styles.colHistory}>
+                          <h6>{item.user[0].user_name}</h6>
+                          <label>Transfer</label>
+                        </div>
+                      </div>
+                      {item.transaction_receiver_id == props.user[0].user_id ? (
+                        <h2>+{item.transaction_amount}</h2>
+                      ) : (
+                        <h2 className={styles.minus}>
+                          -{item.transaction_amount}
+                        </h2>
+                      )}
                     </div>
-                  </div>
-                  <h2>+250000</h2>
-                </div>
-                <div className={styles.historyCol}>
-                  <div className={styles.myHistory}>
-                    <img src="/img-profile.png" alt="" />
-                    <div className={styles.colHistory}>
-                      <h6>Rifqi</h6>
-                      <label>Transfer</label>
-                    </div>
-                  </div>
-                  <h2>+250000</h2>
+                  ))}
                 </div>
               </div>
             </div>

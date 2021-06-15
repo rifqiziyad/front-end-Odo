@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Layout from "../components/Layout";
-import Navbar from "../components/module/Navbar";
-import styles from "../styles/Home.module.css";
-import axiosApiIntances from "../utils/axios";
-import { authPage } from "../middleware/authorizationPage";
-import Footer from "../components/module/Footer";
+import Layout from "components/Layout";
+import Navbar from "components/module/Navbar";
+import styles from "styles/Home.module.css";
+import axiosApiIntances from "utils/axios";
+import { authPage } from "middleware/authorizationPage";
+import Footer from "components/module/Footer";
 import Link from "next/link";
-import SideLeft from "../components/module/SideLeft";
+import SideLeft from "components/module/SideLeft";
 import { useRouter } from "next/router";
 import ChartHome from "components/module/Chart";
 
@@ -65,6 +65,18 @@ export default function Home(props) {
     router.push(`/history/${props.user[0].user_id}`);
   };
 
+  const convertToIdr = (number) => {
+    let number_string = number.toString(),
+      sisa = number_string.length % 3,
+      rupiah = number_string.substr(0, sisa),
+      ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+    if (ribuan) {
+      const separator = sisa ? "." : "";
+      return (rupiah += separator + ribuan.join("."));
+    }
+  };
+
   return (
     <Layout title="Home">
       <Navbar {...props} />
@@ -77,7 +89,16 @@ export default function Home(props) {
                 <div className={styles.col}>
                   <div className={styles.balance}>
                     <p>Balance</p>
-                    <h2>Rp{props.user[0].user_balance}</h2>
+                    {props.user[0].user_balance != 0 ? (
+                      <h2>Rp{convertToIdr(props.user[0].user_balance)}</h2>
+                    ) : (
+                      <h2>Rp0</h2>
+                    )}
+                    {props.user[0].user_phone ? (
+                      <h6>{props.user[0].user_phone}</h6>
+                    ) : (
+                      <h6>-</h6>
+                    )}
                     <h6>{props.user[0].user_phone}</h6>
                   </div>
                   <div className={styles.button} onClick={handleTransfer}>
@@ -117,31 +138,36 @@ export default function Home(props) {
                     <label onClick={redirectHistoryPage}>See all</label>
                   </div>
 
-                  {props.transactionData.map((item, index) => (
-                    <div className={styles.historyCol} key={index}>
-                      <div className={styles.myHistory}>
-                        {item.user_image ? (
-                          <img
-                            src={`http://localhost:3004/backend4/api/${item.user_image}`}
-                            alt=""
-                          />
-                        ) : (
-                          <img src="/icon-default.png" alt="" />
-                        )}
-                        <div className={styles.colHistory}>
-                          <h6>{item.user_name}</h6>
-                          <label>Transfer</label>
+                  {props.transactionData.length > 0 ? (
+                    props.transactionData.map((item, index) => (
+                      <div className={styles.historyCol} key={index}>
+                        <div className={styles.myHistory}>
+                          {item.user_image ? (
+                            <img
+                              src={`http://localhost:3004/backend4/api/${item.user_image}`}
+                              alt=""
+                            />
+                          ) : (
+                            <img src="/icon-default.png" alt="" />
+                          )}
+                          <div className={styles.colHistory}>
+                            <h6>{item.user_name}</h6>
+                            <label>Transfer</label>
+                          </div>
                         </div>
+                        {item.transaction_receiver_id ==
+                        props.user[0].user_id ? (
+                          <h2>+{convertToIdr(item.transaction_amount)}</h2>
+                        ) : (
+                          <h2 className={styles.minus}>
+                            -{convertToIdr(item.transaction_amount)}
+                          </h2>
+                        )}
                       </div>
-                      {item.transaction_receiver_id == props.user[0].user_id ? (
-                        <h2>+{item.transaction_amount}</h2>
-                      ) : (
-                        <h2 className={styles.minus}>
-                          -{item.transaction_amount}
-                        </h2>
-                      )}
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <h4>No History</h4>
+                  )}
                 </div>
               </div>
             </div>
