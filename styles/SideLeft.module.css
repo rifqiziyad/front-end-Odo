@@ -8,6 +8,9 @@
   display: flex;
   align-items: center;
   padding: 50px 0;
+  position: fixed;
+  width: 20%;
+  box-sizing: border-box;
 }
 
 .sideLeft label {
@@ -25,9 +28,12 @@
   box-sizing: border-box;
 }
 
-.sideLeft label:hover {
+.sideLeft label:hover,
+.sideLeft section:hover {
   border-left: #6379f4 solid 4px;
   margin-left: -4px;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .sideLeft label:hover text {
@@ -46,16 +52,33 @@
 
 .sideLeft .logout {
   margin-top: 43px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 @media only screen and (max-width: 768px) {
   /* MAIN */
+  .sideLeft {
+    position: relative;
+    width: 100%;
+  }
+
   .col3 {
     padding: 0;
     width: 100%;
   }
 
   .sideLeft label div {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+  }
+
+  .sideLeft section div {
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -71,7 +94,7 @@
     margin: 0;
   }
 
-  .sideLeft label.logout {
+  .sideLeft section.logout {
     margin: 0;
   }
 
@@ -89,10 +112,6 @@
     flex-direction: row;
     padding: 20px;
     justify-content: space-evenly;
-  }
-
-  .sideLeft .logout {
-    margin: 20px;
   }
 
   .sideLeft label:hover {

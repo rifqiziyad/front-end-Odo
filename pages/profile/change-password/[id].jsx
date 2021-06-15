@@ -80,11 +80,11 @@ export default function changePassword(props) {
 
   return (
     <Layout title="Profile">
+      <Navbar {...props} />
       <div className={styles.container}>
-        <Navbar {...props} />
         <div className={`row ${styles.row}`}>
           <SideLeft />
-          <div className={`col-8`}>
+          <div className={`col-8 ${styles.sideRightMain}`}>
             <div className={styles.sideRight}>
               <h1>Change Password</h1>
               <p>

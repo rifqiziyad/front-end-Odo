@@ -52,8 +52,6 @@ export default function Pin() {
     router.push("/login");
   };
 
-  useEffect;
-
   const changeText = (event) => {
     if (event.target.value) {
       const nextSibling = document.querySelector(

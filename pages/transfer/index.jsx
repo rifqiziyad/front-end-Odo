@@ -69,8 +69,8 @@ export default function Home(props) {
 
   return (
     <Layout title="Trasfer">
+      <Navbar {...props} />
       <div className={styles.container}>
-        <Navbar {...props} />
         <div className={`row ${styles.row}`}>
           <SideLeft />
           <div className={`col-8 ${styles.sideRight}`}>

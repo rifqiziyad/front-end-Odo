@@ -54,12 +54,12 @@ function SideLeft(props) {
               <text>Profile</text>
             </div>
           </label>
-          <label className={styles.logout} onClick={handleLogout}>
+          <section className={styles.logout} onClick={handleLogout}>
             <div>
               <img src="/icon-logout.png" alt="" />
               <text>Logout</text>
             </div>
-          </label>
+          </section>
         </div>
       </div>
     </>

@@ -55,8 +55,8 @@ export default function inputAmount(props) {
 
   return (
     <Layout title="Trasfer">
+      <Navbar {...props} />
       <div className={styles.container}>
-        <Navbar {...props.user} />
         <div className={`row ${styles.row}`}>
           <SideLeft />
           <div className={`col-8 ${styles.sideRight}`}>

@@ -1,6 +1,6 @@
 .container {
-  /* background-color: rgb(243, 247, 247); */
   margin: 0 !important;
+  padding-top: 85px;
 }
 
 .row {
@@ -20,6 +20,7 @@
   padding: 50px 0;
   height: 100vh;
   box-sizing: border-box !important;
+  width: 74%;
 }
 
 .sideRight .profile {

@@ -1,5 +1,4 @@
 .container {
-  /* background-color: rgb(243, 247, 247); */
   margin: 0 !important;
   padding-top: 85px;
 }
@@ -9,6 +8,7 @@
   padding: 30px 100px;
   background-color: rgb(245, 248, 248);
   margin: 0;
+  margin-bottom: 97px;
 }
 
 .sideRightMain {
@@ -39,39 +39,37 @@
 
 .sideRight form {
   margin: auto;
-  margin-top: 60px;
+  width: 70%;
+  margin-top: 50px;
+}
+
+.sideRight .inputPin {
   display: flex;
-  flex-direction: column;
-  width: 60%;
+  justify-content: space-around;
 }
 
-.sideRight form input {
-  outline: none;
-  border: none;
-  padding: 10px 30px;
-  width: 100%;
-}
-
-.sideRight form input::placeholder {
-  font-size: 16px;
-  color: rgba(169, 169, 169, 0.8);
+.sideRight input {
+  text-align: center;
+  width: 40px;
+  padding: 10px;
+  border: 1px solid #6379f4;
+  box-sizing: border-box;
+  box-shadow: 0px 10px 75px rgba(147, 147, 147, 0.1);
+  border-radius: 10px;
 }
 
 .sideRight form button {
+  width: 100%;
   background: #6379f4;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  padding: 10px;
+  box-shadow: 0px 6px 75px rgba(100, 87, 87, 0.05);
+  border-radius: 12px;
+  border: none;
+  padding: 10px 0;
+  margin-top: 30px;
 }
 
-.sideRight form div {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-  border-bottom: 1.5px solid rgba(169, 169, 169, 0.6);
-}
-
-.sideRight form div img:hover {
-  cursor: pointer;
+.sideRight input::-webkit-outer-spin-button,
+.sideRight input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

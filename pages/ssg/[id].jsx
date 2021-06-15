@@ -15,7 +15,7 @@ export async function getStaticPaths() {
     params: { id: `${item.id}` },
   }));
 
-  console.log(paths);
+  // console.log(paths);
 
   return {
     paths,
@@ -24,7 +24,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  console.log(context.params);
+  // console.log(context.params);
   const user = await axios
     .get(`https://jsonplaceholder.typicode.com/users/${context.params.id}`)
     .then((res) => {
@@ -41,7 +41,7 @@ export async function getStaticProps(context) {
 }
 
 export default function SSGPage(props) {
-  console.log(props);
+  // console.log(props);
 
   return (
     <>

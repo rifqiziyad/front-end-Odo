@@ -7,6 +7,7 @@ import axiosApiIntances from "utils/axios";
 import { useState } from "react";
 // import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -26,7 +27,29 @@ export async function getServerSideProps(context) {
 
 export default function pesonalInfo(props) {
   // const router = useRouter();
-  const [data, setData] = useState({});
+  const [data, setData] = useState(props.user[0]);
+
+  const handleUpdateData = () => {
+    event.preventDefault();
+    const setDataUser = {
+      userName: data.user_name,
+      userEmail: data.user_email,
+      userPhone: data.user_phone,
+    };
+
+    axiosApiIntances
+      .patch(`/user/profile/${props.user[0].user_id}`, setDataUser)
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: "Update Success",
+          confirmButtonColor: "#6379f4",
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data.msg);
+      });
+  };
 
   const changeText = (event) => {
     setData({
@@ -35,15 +58,13 @@ export default function pesonalInfo(props) {
     });
   };
 
-  console.log(data);
-
   return (
-    <Layout title="Profile">
+    <Layout title="Personal Informatin">
+      <Navbar {...props} />
       <div className={styles.container}>
-        <Navbar {...props} />
         <div className={`row ${styles.row}`}>
           <SideLeft />
-          <div className={`col-8`}>
+          <div className={`col-8`} className={styles.sideRightMain}>
             <div className={styles.sideRight}>
               <h1>Personal Information</h1>
               <p>
@@ -51,32 +72,34 @@ export default function pesonalInfo(props) {
                 you want to make changes on your information, contact our
                 support.
               </p>
-              <form>
+              <form onSubmit={handleUpdateData}>
                 <h4>Name</h4>
                 <input
                   type="text"
-                  value={props.user[0].user_name}
-                  name="userName"
+                  value={data.user_name}
+                  name="user_name"
                   onChange={(event) => changeText(event)}
                 />
 
                 <h4>Email</h4>
                 <input
                   type="email"
-                  value={props.user[0].user_email}
-                  name="userEmail"
+                  value={data.user_email}
+                  name="user_email"
                   onChange={(event) => changeText(event)}
                 />
 
                 <h4>Phone Number</h4>
                 <input
                   type="text"
-                  value={props.user[0].user_phone}
-                  name="userPhone"
+                  value={data.user_phone}
+                  name="user_phone"
                   onChange={(event) => changeText(event)}
                 />
 
-                <Button variant="light">Update</Button>
+                <Button type="submit" variant="light">
+                  Update
+                </Button>
               </form>
             </div>
           </div>

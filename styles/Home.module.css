@@ -5,6 +5,7 @@
 .container {
   /* height: 100vh; */
   margin: 0 !important;
+  padding-top: 85px;
 }
 
 .row {
@@ -77,14 +78,19 @@
 
 .row2 {
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
 }
 
 .info {
+  background-color: white;
+  padding: 30px;
+  width: 65.3%;
+}
+
+.info .infoRow {
   display: flex;
   justify-content: space-between;
   background-color: white;
-  padding: 30px 50px;
 }
 
 .info p {
@@ -100,8 +106,12 @@
   color: #3a3d42;
 }
 
+.historyMain {
+  width: 33%;
+  padding: 0;
+}
+
 .history {
-  width: 40.5%;
   background-color: white;
 }
 
@@ -146,20 +156,33 @@
   margin-right: 10px;
   background-blend-mode: normal;
   border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  border: rgb(155, 147, 147) solid 1px;
 }
 
 .historyCol h2 {
   font-weight: bold;
   font-size: 16px;
   color: #1ec15f;
-  /* width: 36%; */
+}
+
+.historyCol h2.minus {
+  font-weight: bold;
+  font-size: 16px;
+  color: #ff5b37;
 }
 
 .historyCol h3 {
   font-weight: bold;
   font-size: 16px;
   color: #ff5b37;
-  /* width: 36%; */
+}
+
+.historyCol .colHistory h6 {
+  font-weight: bold;
+  font-size: 14px;
+  color: #4d4b57;
 }
 
 @media only screen and (max-width: 768px) {

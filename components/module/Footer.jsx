@@ -1,6 +1,6 @@
 import styles from "../../styles/NavbarFooter.module.css";
 
-function Footer(props) {
+function Footer() {
   return (
     <>
       <footer className={styles.footer}>

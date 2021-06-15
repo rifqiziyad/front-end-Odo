@@ -106,7 +106,7 @@ export default function Confirmation(props) {
     } else {
       Swal.fire({
         icon: "warning",
-        title: "Wrong Password",
+        title: "Wrong PIN",
       });
     }
   };
@@ -153,8 +153,8 @@ export default function Confirmation(props) {
   return (
     <>
       <Layout title="Confirmation">
+        <Navbar {...props} />
         <div className={styles.container}>
-          <Navbar {...props.user} />
           <div className={`row ${styles.row}`}>
             <SideLeft />
             <div className={`col-8 ${styles.sideRight}`}>

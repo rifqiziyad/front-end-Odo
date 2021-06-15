@@ -7,6 +7,7 @@ import Footer from "../../components/module/Footer";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { useState } from "react";
 
 export async function getServerSideProps(context) {
   const { id } = context.query;
@@ -73,8 +74,8 @@ export default function Profile(props) {
 
   return (
     <Layout title="Profile">
+      <Navbar {...props} />
       <div className={styles.container}>
-        <Navbar {...props} />
         <div className={`row ${styles.row}`}>
           <SideLeft />
           <div className={`col-8 ${styles.sideRight}`}>

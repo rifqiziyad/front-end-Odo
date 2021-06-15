@@ -50,8 +50,8 @@ export default function Success(props) {
   return (
     <>
       <Layout title="Transfer | Success">
+        <Navbar {...props} />
         <div className={styles.container}>
-          <Navbar {...props.user} />
           <div className={`row ${styles.row}`}>
             <SideLeft />
             <div className={`col-8 ${styles.sideRight}`}>
