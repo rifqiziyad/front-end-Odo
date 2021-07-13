@@ -26,7 +26,7 @@ This is a web e-wallet useful for saving money used for online transactions
 
 1. <a href="https://nodejs.org/en/download/">Node Js</a>
 2. Node_modules `npm install` or `yarn install`
-3. Backend API Backend-TPay [`here`](https://github.com/rifqiziyad/back-end-Odo)
+3. Backend API Backend-Odo[`here`](https://github.com/rifqiziyad/back-end-Odo)
 
 ## Getting Started
 
