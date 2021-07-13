@@ -1,4 +1,4 @@
-import Layout from "components/Layout";
+import Layout from "components/layout";
 import Navbar from "components/module/Navbar";
 import styles from "styles/Home.module.css";
 import axiosApiIntances from "utils/axios";
