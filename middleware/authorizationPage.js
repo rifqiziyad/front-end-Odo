@@ -7,7 +7,7 @@ export function unauthPage(context) {
     if (allCookies.token) {
       return context.res
         .writeHead(302, {
-          Location: "/",
+          Location: "/landing",
         })
         .end();
     }
@@ -22,7 +22,7 @@ export function authPage(context) {
     if (!allCookies.token) {
       return context.res
         .writeHead(302, {
-          Location: "/landing",
+          Location: "/login",
         })
         .end();
     }

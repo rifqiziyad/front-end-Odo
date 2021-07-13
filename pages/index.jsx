@@ -1,14 +1,16 @@
-// import { useEffect, useState } from "react";
 import Layout from "components/Layout";
 import Navbar from "components/module/Navbar";
 import styles from "styles/Home.module.css";
 import axiosApiIntances from "utils/axios";
 import { authPage } from "middleware/authorizationPage";
 import Footer from "components/module/Footer";
-// import Link from "next/link";
 import SideLeft from "components/module/SideLeft";
 import { useRouter } from "next/router";
 import ChartHome from "components/module/Chart";
+import Cookies from "js-cookie";
+import { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -63,14 +65,55 @@ export async function getServerSideProps(context) {
 
 export default function Home(props) {
   const router = useRouter();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
+  const [balance, setBalance] = useState(0);
 
-  const handleTransfer = () => {
-    event.preventDefault();
-    router.push("/transfer");
+  const changeTextAmount = (event) => {
+    setBalance(parseInt(event.target.value));
   };
 
-  const handleTopup = () => {
+  const handleTopup = (event) => {
     event.preventDefault();
+    axiosApiIntances
+      .patch(
+        `user/topup/${Cookies.get("user_id")}`,
+        { userTopup: balance },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        }
+      )
+      .then(() => {
+        Swal.showLoading(Swal.getDenyButton());
+        setShow(false);
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: err.response.data.msg,
+        });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Success Top Up",
+            confirmButtonText: "Ok",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        });
+      });
+  };
+
+  const handleTransfer = (event) => {
+    event.preventDefault();
+    router.push("/transfer");
   };
 
   const redirectHistoryPage = () => {
@@ -113,13 +156,16 @@ export default function Home(props) {
                       <h6>-</h6>
                     )}
                   </div>
-                  <div className={styles.button} onClick={handleTransfer}>
-                    <button className={`btn btn-light ${styles.button1}`}>
+                  <div className={styles.button}>
+                    <button
+                      className={`btn btn-light ${styles.button1}`}
+                      onClick={handleTransfer}
+                    >
                       <img src="/icon-transfer.png" alt="" />
                       Transfer
                     </button>
 
-                    <button className="btn btn-light" onClick={handleTopup}>
+                    <button className="btn btn-light" onClick={handleShow}>
                       <img src="/icon-topup.png" alt="" />
                       Top Up
                     </button>
@@ -187,6 +233,34 @@ export default function Home(props) {
         </div>
       </div>
       <Footer />
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header>
+          <Modal.Title>Top up</Modal.Title>
+          <Button variant="light" onClick={handleClose}>
+            X
+          </Button>
+        </Modal.Header>
+        <Modal.Body>
+          <div className={`col-12 ${styles.colRight}`}>
+            <form onSubmit={handleTopup}>
+              <div className={`mb-3 ${styles.inputPin}`}>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="0.00"
+                  onChange={changeTextAmount}
+                  required
+                ></input>
+              </div>
+              <div className={styles.buttonTopup}>
+                <button type="submit" className="btn btn-primary">
+                  Continue
+                </button>
+              </div>
+            </form>
+          </div>
+        </Modal.Body>
+      </Modal>
     </Layout>
   );
 }

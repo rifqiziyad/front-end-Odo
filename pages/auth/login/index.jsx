@@ -31,6 +31,10 @@ function Login(props) {
           expires: 7,
           secure: true,
         });
+        Cookie.set("refreshToken", result.value.data.data.refreshToken, {
+          expires: 7,
+          secure: true,
+        });
         Swal.fire({
           icon: "success",
           title: result.value.data.msg,

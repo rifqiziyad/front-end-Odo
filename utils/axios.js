@@ -37,6 +37,20 @@ axiosApiIntances.interceptors.response.use(
       Cookie.remove("token");
       Cookie.remove("user");
       window.location.href = "/login";
+      if (error.response.data.msg === "jwt expired") {
+        const refreshToken = localStorage.getItem("refreshToken");
+        axiosApiIntances
+          .post("auth/refresh", { refreshToken })
+          .then((res) => {
+            localStorage.setItem("token", res.data.data.token);
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
+      } else {
+        alert("Please Login !");
+        localStorage.clear();
+        window.location.href = "/login";
+      }
     }
     return Promise.reject(error);
   }

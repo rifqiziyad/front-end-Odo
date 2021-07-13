@@ -3,7 +3,6 @@
 }
 
 .container {
-  /* height: 100vh; */
   margin: 0 !important;
   padding-top: 85px;
 }
@@ -125,6 +124,7 @@
   font-weight: bold;
   font-size: 18px;
   color: #3a3d42;
+  margin: 0;
 }
 
 .history label {
@@ -133,6 +133,14 @@
   font-weight: 600;
   font-size: 14px;
   color: #6379f4;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.history label:hover {
+  background-color: #6379f4;
+  color: white;
+  cursor: pointer;
 }
 
 .historyCol {
@@ -183,6 +191,11 @@
   font-weight: bold;
   font-size: 14px;
   color: #4d4b57;
+}
+
+.buttonTopup button {
+  background-color: #6379f4;
+  border: #6379f4;
 }
 
 @media only screen and (max-width: 768px) {

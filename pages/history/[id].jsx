@@ -4,17 +4,13 @@ import Footer from "components/module/Footer";
 import Navbar from "components/module/Navbar";
 import Layout from "components/layout";
 import axiosApiIntances from "utils/axios";
-import { useState } from "react";
-// import { useRouter } from "next/router";
-import { Button } from "react-bootstrap";
+import { authPage } from "middleware/authorizationPage";
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context) {
+  // const data = await authPage(context);
+  console.log(context);
   const users = await axiosApiIntances
-    .get("user/users/all-data", {
-      headers: {
-        Authorization: "Bearer " + data.token,
-      },
-    })
+    .get("user/users/all-data")
     .then((res) => {
       return res.data.data;
     })
@@ -32,25 +28,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+  const data = await authPage(context);
   const user = await axiosApiIntances
-    .get(`user/${context.params.id}`, {
-      headers: {
-        Authorization: "Bearer " + data.token,
-      },
-    })
+    .get(`user/${context.params.id}`)
     .then((res) => {
       return res.data.data;
     })
-    .catch((err) => {
+    .catch(() => {
       return {};
     });
 
   const getTransactionByWeek = await axiosApiIntances
-    .get(`transaction/week/${context.params.id}`, {
-      headers: {
-        Authorization: "Bearer " + data.token,
-      },
-    })
+    .get(`transaction/week/${context.params.id}`)
     .then((res) => {
       return res.data.data;
     })
@@ -59,11 +48,7 @@ export async function getStaticProps(context) {
     });
 
   const getTransactionByMonth = await axiosApiIntances
-    .get(`transaction/month/${context.params.id}`, {
-      headers: {
-        Authorization: "Bearer " + data.token,
-      },
-    })
+    .get(`transaction/month/${context.params.id}`)
     .then((res) => {
       return res.data.data;
     })

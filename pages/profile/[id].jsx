@@ -1,9 +1,9 @@
-import Layout from "../../components/Layout";
-import Navbar from "../../components/module/Navbar";
-import axiosApiIntances from "../../utils/axios";
-import styles from "../../styles/Profile.module.css";
-import SideLeft from "../../components/module/SideLeft";
-import Footer from "../../components/module/Footer";
+import Layout from "components/layout";
+import Navbar from "components/module/Navbar";
+import axiosApiIntances from "utils/axios";
+import styles from "styles/Profile.module.css";
+import SideLeft from "components/module/SideLeft";
+import Footer from "components/module/Footer";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
