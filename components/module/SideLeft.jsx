@@ -43,7 +43,7 @@ function SideLeft(props) {
               window.location.reload();
             }
           });
-        }, 1000);
+        });
       });
   };
 

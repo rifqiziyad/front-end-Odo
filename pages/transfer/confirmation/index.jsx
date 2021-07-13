@@ -16,7 +16,11 @@ export async function getServerSideProps(context) {
   const { id, n, b } = context.query;
 
   const res = await axiosApiIntances
-    .get(`/user/${id}`)
+    .get(`/user/${id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -25,7 +29,11 @@ export async function getServerSideProps(context) {
     });
 
   const resUserById = await axiosApiIntances
-    .get(`/user/${data.user_id}`)
+    .get(`/user/${data.user_id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -111,13 +119,16 @@ export default function Confirmation(props) {
     }
   };
 
-  console.log(props.balance);
-
   const updateUserBalance = () => {
     axiosApiIntances
       .patch(
         `/user/balance?SenderId=${props.user[0].user_id}&ReceiverId=${props.userReceiver[0].user_id}`,
-        { userBalance: props.balance }
+        { userBalance: props.balance },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        }
       )
       .then((res) => {
         return res.data;
@@ -139,6 +150,11 @@ export default function Confirmation(props) {
           transactionStatus: "success",
           transactionMessage: props.notes,
           userPin: pin,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
         }
       )
       .then((res) => {

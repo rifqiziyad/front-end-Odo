@@ -8,11 +8,18 @@ import { useState } from "react";
 // import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { authPage } from "middleware/authorizationPage";
+import Cookies from "js-cookie";
 
 export async function getServerSideProps(context) {
+  const data = await authPage(context);
   const { id } = context.query;
   const res = await axiosApiIntances
-    .get(`user/${id}`)
+    .get(`user/${id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -38,16 +45,27 @@ export default function pesonalInfo(props) {
     };
 
     axiosApiIntances
-      .patch(`/user/profile/${props.user[0].user_id}`, setDataUser)
-      .then((res) => {
+      .patch(`/user/profile/${props.user[0].user_id}`, setDataUser, {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      })
+      .then(() => {
+        Swal.showLoading(Swal.getDenyButton());
+      })
+      .catch((err) => {
+        return err.response.data.msg;
+      })
+      .finally(() => {
         Swal.fire({
           icon: "success",
           title: "Update Success",
           confirmButtonColor: "#6379f4",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
         });
-      })
-      .catch((err) => {
-        console.log(err.response.data.msg);
       });
   };
 

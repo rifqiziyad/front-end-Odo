@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Layout from "../../components/layout";
 import styles from "../../styles/Pin.module.css";
 import { useRouter } from "next/router";
@@ -7,6 +7,11 @@ import Image from "next/image";
 import axiosApiIntances from "../../utils/axios";
 import Swal from "sweetalert2";
 import { authPage } from "../../middleware/authorizationPage";
+
+// export async function getServerSideProps(context) {
+//   await authPage(context);
+//   return { props: {} };
+// }
 
 export default function Pin() {
   const router = useRouter();
@@ -27,24 +32,22 @@ export default function Pin() {
     // proses axios
     axiosApiIntances
       .patch(`user/pin/${Cookie.get("user_id")}`, { userPin: allPin })
-      .then((res) => {
+      .then(() => {
         Swal.showLoading(Swal.getDenyButton());
       })
       .catch((err) => {
-        console.log(err.response.data.msg);
+        return err.response.data.msg;
       })
       .finally(() => {
-        setTimeout(() => {
-          Swal.fire({
-            icon: "success",
-            title: "Success Create Pin",
-            confirmButtonText: "Login Now",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              router.push("/login");
-            }
-          });
-        }, 1000);
+        Swal.fire({
+          icon: "success",
+          title: "Success Create Pin",
+          confirmButtonText: "Login Now",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push("/login");
+          }
+        });
       });
   };
 

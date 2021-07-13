@@ -32,7 +32,6 @@ function Navbar(props) {
                 <h6>-</h6>
               )}
             </div>
-            <img className={styles.imgBell} src="/bell.png" alt="" />
           </div>
         </div>
       </div>

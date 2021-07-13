@@ -14,7 +14,11 @@ export async function getServerSideProps(context) {
   const { id, n, b, datetime } = context.query;
 
   const res = await axiosApiIntances
-    .get(`/user/${id}`)
+    .get(`/user/${id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -23,7 +27,11 @@ export async function getServerSideProps(context) {
     });
 
   const resUserById = await axiosApiIntances
-    .get(`/user/${data.user_id}`)
+    .get(`/user/${data.user_id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })

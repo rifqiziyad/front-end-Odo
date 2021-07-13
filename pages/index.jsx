@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import Layout from "components/Layout";
 import Navbar from "components/module/Navbar";
 import styles from "styles/Home.module.css";
 import axiosApiIntances from "utils/axios";
 import { authPage } from "middleware/authorizationPage";
 import Footer from "components/module/Footer";
-import Link from "next/link";
+// import Link from "next/link";
 import SideLeft from "components/module/SideLeft";
 import { useRouter } from "next/router";
 import ChartHome from "components/module/Chart";
@@ -14,7 +14,11 @@ export async function getServerSideProps(context) {
   const data = await authPage(context);
 
   const res = await axiosApiIntances
-    .get(`/user/${data.user_id}`)
+    .get(`/user/${data.user_id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -23,7 +27,11 @@ export async function getServerSideProps(context) {
     });
 
   const resTransaction = await axiosApiIntances
-    .get(`/transaction/${data.user_id}`)
+    .get(`/transaction/${data.user_id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -32,7 +40,11 @@ export async function getServerSideProps(context) {
     });
 
   const dataForChart = await axiosApiIntances
-    .get(`transaction/day/${data.user_id}`)
+    .get(`transaction/day/${data.user_id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -53,11 +65,12 @@ export default function Home(props) {
   const router = useRouter();
 
   const handleTransfer = () => {
+    event.preventDefault();
     router.push("/transfer");
   };
 
   const handleTopup = () => {
-    console.log("topup");
+    event.preventDefault();
   };
 
   const redirectHistoryPage = () => {
@@ -99,7 +112,6 @@ export default function Home(props) {
                     ) : (
                       <h6>-</h6>
                     )}
-                    <h6>{props.user[0].user_phone}</h6>
                   </div>
                   <div className={styles.button} onClick={handleTransfer}>
                     <button className={`btn btn-light ${styles.button1}`}>

@@ -12,7 +12,11 @@ import Swal from "sweetalert2";
 export async function getServerSideProps(context) {
   const { id } = context.query;
   const res = await axiosApiIntances
-    .get(`user/${id}`)
+    .get(`user/${id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -41,20 +45,26 @@ export default function pesonalInfo(props) {
 
     // proses axios
     axiosApiIntances
-      .patch(`user/pin/${props.user[0].user_id}`, { userPin: allPin })
+      .patch(
+        `user/pin/${props.user[0].user_id}`,
+        { userPin: allPin },
+        {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        }
+      )
       .then(() => {
         Swal.showLoading(Swal.getDenyButton());
       })
       .catch((err) => {
-        console.log(err.response.data.msg);
+        return err.response.data.msg;
       })
       .finally(() => {
-        setTimeout(() => {
-          Swal.fire({
-            icon: "success",
-            title: "Success Create Pin",
-          });
-        }, 1000);
+        Swal.fire({
+          icon: "success",
+          title: "Success Create Pin",
+        });
       });
   };
 

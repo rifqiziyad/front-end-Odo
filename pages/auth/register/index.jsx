@@ -1,19 +1,21 @@
 import { useState } from "react";
-import Layout from "../../../components/Layout";
-import styles from "../../../styles/Register.module.css";
+import Layout from "components/Layout";
+import styles from "styles/Register.module.css";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
-import { unauthPage } from "../../../middleware/authorizationPage";
 import Image from "next/image";
 import Swal from "sweetalert2";
-import axiosApiIntances from "../../../utils/axios";
+import axiosApiIntances from "utils/axios";
+import { unauthPage } from "middleware/authorizationPage";
+import { connect } from "react-redux";
+import { register } from "redux/actions/auth";
 
 export async function getServerSideProps(context) {
   await unauthPage(context);
   return { props: {} };
 }
 
-export default function Register() {
+function Register(props) {
   const router = useRouter();
   const [form, setForm] = useState({
     userName: "",
@@ -23,26 +25,31 @@ export default function Register() {
 
   const handleRegister = (event) => {
     event.preventDefault();
-    axiosApiIntances
-      .post("/auth/register", form)
-      .then((res) => {
-        Cookie.set("user_id", res.data.data.id, {
-          expires: 7,
-          secure: true,
-        });
+    props
+      .register(form)
+      .then((result) => {
         Swal.fire({
           icon: "success",
-          title: res.data.msg,
+          title: result.value.data.msg,
+          confirmButtonText: "Ok",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push("/login");
+          }
         });
-        router.push("/pin");
       })
       .catch((err) => {
         Swal.fire({
-          icon: "warning",
+          icon: "error",
           title: err.response.data.msg,
+          confirmButtonText: "Ok",
         });
       });
   };
+
+  if (props.auth.isLoading) {
+    Swal.showLoading(Swal.getDenyButton());
+  }
 
   const handleLogin = () => {
     router.push("/login");
@@ -135,3 +142,11 @@ export default function Register() {
     </Layout>
   );
 }
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = { register };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

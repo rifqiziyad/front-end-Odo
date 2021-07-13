@@ -2,12 +2,19 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 
 function ChartHome(props) {
+  const listDay = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const totalData = props.dataByDay.map((item) => {
     return item.Total;
   });
 
+  const date = props.dataByDay.map((item) => {
+    return new Date(item.Date.split("T")[0]).getDay();
+  });
+
+  // const unshift = totalData.unshift(1000, 200);
+
   const data = {
-    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    labels: listDay,
     datasets: [
       {
         label: "This Weeek",

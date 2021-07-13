@@ -9,11 +9,17 @@ import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
+import { authPage } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
+  const data = await authPage(context);
   const { id } = context.query;
   const res = await axiosApiIntances
-    .get(`user/${id}`)
+    .get(`user/${id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -47,8 +53,12 @@ export default function changePassword(props) {
   const handleChangePassword = () => {
     event.preventDefault();
     axiosApiIntances
-      .patch(`user/password/${props.user[0].user_id}`, userData)
-      .then((res) => {
+      .patch(`user/password/${props.user[0].user_id}`, userData, {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      })
+      .then(() => {
         Swal.fire({
           icon: "success",
           title: "Success Change Password",
@@ -79,7 +89,7 @@ export default function changePassword(props) {
   };
 
   return (
-    <Layout title="Profile">
+    <Layout title="Change Password">
       <Navbar {...props} />
       <div className={styles.container}>
         <div className={`row ${styles.row}`}>

@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     APP_NAME: "Odo",
-    BASE_URL: "http://localhost:3004/backend4/api/v1",
+    BASE_URL: `${process.env.BASE_URL}`,
   },
   async rewrites() {
     return [

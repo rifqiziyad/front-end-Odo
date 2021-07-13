@@ -7,15 +7,18 @@ import axiosApiIntances from "utils/axios";
 import { useState } from "react";
 // import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
-import Swal from "sweetalert2";
 
 export async function getStaticPaths() {
   const users = await axiosApiIntances
-    .get("user/users/all-data")
+    .get("user/users/all-data", {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
-    .catch((err) => {
+    .catch(() => {
       return [];
     });
   const paths = users.map((item) => ({
@@ -30,7 +33,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const user = await axiosApiIntances
-    .get(`user/${context.params.id}`)
+    .get(`user/${context.params.id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -39,7 +46,11 @@ export async function getStaticProps(context) {
     });
 
   const getTransactionByWeek = await axiosApiIntances
-    .get(`transaction/week/${context.params.id}`)
+    .get(`transaction/week/${context.params.id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -48,7 +59,11 @@ export async function getStaticProps(context) {
     });
 
   const getTransactionByMonth = await axiosApiIntances
-    .get(`transaction/month/${context.params.id}`)
+    .get(`transaction/month/${context.params.id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })

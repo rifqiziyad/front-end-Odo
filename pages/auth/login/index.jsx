@@ -1,42 +1,58 @@
 import { useState } from "react";
-import Layout from "../../../components/Layout";
+import Layout from "components/Layout";
 import styles from "styles/Login.module.css";
 import { useRouter } from "next/router";
-import Cookie, { set } from "js-cookie";
-import { unauthPage } from "../../../middleware/authorizationPage";
+import Cookie from "js-cookie";
+import { unauthPage } from "middleware/authorizationPage";
 import Image from "next/image";
-import axiosApiIntances from "../../../utils/axios";
 import Swal from "sweetalert2";
+import { connect } from "react-redux";
+import { login } from "redux/actions/auth";
 
 export async function getServerSideProps(context) {
   await unauthPage(context);
   return { props: {} };
 }
 
-export default function Login() {
+function Login(props) {
   const router = useRouter();
   const [form, setForm] = useState({ userEmail: "", userPassword: "" });
 
   const handleLogin = (event) => {
     event.preventDefault();
-    // proses axios
-    axiosApiIntances
-      .post("/auth/login", form)
-      .then((res) => {
-        router.push("/");
-        Cookie.set("token", res.data.data.token, { expires: 7, secure: true });
-        Cookie.set("user_id", res.data.data.user_id, {
+    props
+      .login(form)
+      .then((result) => {
+        Cookie.set("token", result.value.data.data.token, {
           expires: 7,
           secure: true,
+        });
+        Cookie.set("user_id", result.value.data.data.user_id, {
+          expires: 7,
+          secure: true,
+        });
+        Swal.fire({
+          icon: "success",
+          title: result.value.data.msg,
+          confirmButtonText: "Ok",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push("/");
+          }
         });
       })
       .catch((err) => {
         Swal.fire({
           icon: "error",
           title: err.response.data.msg,
+          confirmButtonText: "Ok",
         });
       });
   };
+
+  if (props.auth.isLoading) {
+    Swal.showLoading(Swal.getDenyButton());
+  }
 
   const handleRegister = () => {
     router.push("/register");
@@ -120,3 +136,11 @@ export default function Login() {
     </Layout>
   );
 }
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = { login };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

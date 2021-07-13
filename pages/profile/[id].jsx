@@ -7,12 +7,18 @@ import Footer from "../../components/module/Footer";
 import Swal from "sweetalert2";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import React from "react";
+import { authPage } from "middleware/authorizationPage";
 
 export async function getServerSideProps(context) {
+  const data = await authPage(context);
   const { id } = context.query;
   const res = await axiosApiIntances
-    .get(`user/${id}`)
+    .get(`user/${id}`, {
+      headers: {
+        Authorization: "Bearer " + data.token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
@@ -33,6 +39,7 @@ export default function Profile(props) {
     "Change PIN",
     "Logout",
   ];
+  const inputOpenFileRef = React.createRef();
 
   const redirected = (item) => {
     event.preventDefault();
@@ -52,14 +59,18 @@ export default function Profile(props) {
     }
   };
 
-  const changeImage = () => {
+  const changeImage = (event) => {
     const image = event.target.files[0];
 
     const formData = new FormData();
     formData.append("image", image);
 
     axiosApiIntances
-      .patch(`user/image/${props.user[0].user_id}`, formData)
+      .patch(`user/image/${props.user[0].user_id}`, formData, {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      })
       .then(() => {
         window.location.reload();
       })
@@ -70,6 +81,27 @@ export default function Profile(props) {
           confirmButtonText: "Ok",
         });
       });
+  };
+
+  const deleteImage = () => {
+    if (window.confirm("sure you want to delete image ?") === true) {
+      axiosApiIntances
+        .patch(`user/image/${props.user[0].user_id}`, "", {
+          headers: {
+            Authorization: "Bearer " + Cookies.get("token"),
+          },
+        })
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => {
+          return err.response;
+        });
+    }
+  };
+
+  const showOpenFileDlg = () => {
+    inputOpenFileRef.current.click();
   };
 
   return (
@@ -86,11 +118,31 @@ export default function Profile(props) {
                 className={styles.profile}
               />
             ) : (
-              <img src="/icon-default.png" alt="" className={styles.profile} />
+              <img
+                src="/icon-default.png"
+                alt="edit"
+                className={styles.profile}
+              />
             )}
-            <div className={styles.edit} onChange={(e) => changeImage(e)}>
-              <img src="/icon-edit.png" alt="" />
-              <input type="file" id="files" title="asdsad" />
+            <div className={styles.rowEdit}>
+              <div
+                className={styles.edit}
+                onChange={(e) => changeImage(e)}
+                onClick={showOpenFileDlg}
+              >
+                <img src="/icon-edit.png" alt="" className={styles.iconEdit} />
+                <input
+                  ref={inputOpenFileRef}
+                  type="file"
+                  style={{ display: "none" }}
+                />
+              </div>
+              <img
+                src="/iconDelete.png"
+                alt=""
+                className={styles.iconDelete}
+                onClick={deleteImage}
+              />
             </div>
             <h2>{props.user[0].user_name}</h2>
             <h5>{props.user[0].user_phone}</h5>

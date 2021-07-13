@@ -70,7 +70,7 @@
 .sideRight .byWeek,
 .sideRight .byMonth {
   height: 300px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .sideRight .historyCol .minus {
