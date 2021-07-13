@@ -1,4 +1,4 @@
-<h1 align='center'>Next JS - TPay</h1>
+<h1 align='center'>Next JS - Odo</h1>
   <p align="center">
     <a href="#">View Demo</a>
     ·
@@ -7,7 +7,7 @@
     <a href="https://github.com/rifqiziyad/front-end-Odo/pulls">Request Feature</a>
   </p>
 
-![Image Banner](/public/panner-readme-home-page.PNG)
+![Image Banner](/public/banner-readme-home-page.PNG)
 
 ## About The Project
 
