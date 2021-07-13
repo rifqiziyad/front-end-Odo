@@ -51,4 +51,4 @@ BASE_URL=http://localhost:3004/backend4/api/v1
 
 ## License
 
-© [Muhammad Alfin Ramadhan](https://github.com/rifqiziyad)
+© [Rifqi Ziyad Imtinan](https://github.com/rifqiziyad)
