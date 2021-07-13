@@ -7,7 +7,7 @@
     <a href="https://github.com/rifqiziyad/front-end-Odo/pulls">Request Feature</a>
   </p>
 
-![Image Banner](/public/tpay1.jpg)
+![Image Banner](/public/panner-readme-home-page.PNG)
 
 ## About The Project
 
