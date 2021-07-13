@@ -20,7 +20,6 @@ This is a web e-wallet useful for saving money used for online transactions
 [![React-Bootstrap](https://img.shields.io/badge/React%20Bootstrap-v1.6.1-brightgreen)](https://github.com/react-bootstrap/react-bootstrap)
 [![Js-cookie](https://img.shields.io/badge/js--cookie-v2.2.1-yellow)](https://github.com/js-cookie/js-cookie)
 [![Redux](https://img.shields.io/badge/redux-v4.1.0-yellowgreen)](https://redux.js.org/)
-[![Rechart](https://img.shields.io/badge/Rechart-v2.0.9-red)](https://recharts.org/en-US/guide/getting-started)
 
 ## Requirements
 
@@ -47,7 +46,7 @@ BASE_URL=http://localhost:3004/backend4/api/v1
 - [Next](https://nextjs.org/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [js-cookie](https://github.com/js-cookie/js-cookie)
-- [Rechart](https://recharts.org/en-US/guide/getting-started)
+
 
 ## License
 
