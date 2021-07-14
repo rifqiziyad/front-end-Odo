@@ -5,8 +5,6 @@ import Navbar from "components/module/Navbar";
 import Layout from "components/layout";
 import axiosApiIntances from "utils/axios";
 import { useState } from "react";
-// import { useRouter } from "next/router";
-import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
 export async function getServerSideProps(context) {

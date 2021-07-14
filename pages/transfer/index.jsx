@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Layout from "../../components/layout";
-import Navbar from "../../components/module/Navbar";
-import styles from "../../styles/Transfer.module.css";
-import axiosApiIntances from "../../utils/axios";
-import Footer from "../../components/module/Footer";
-import SideLeft from "../../components/module/SideLeft";
+import Layout from "components/layout";
+import Navbar from "components/module/Navbar";
+import styles from "styles/Transfer.module.css";
+import axiosApiIntances from "utils/axios";
+import Footer from "components/module/Footer";
+import SideLeft from "components/module/SideLeft";
 import Cookies from "js-cookie";
-import { authPage } from "../../middleware/authorizationPage";
+import { authPage } from "middleware/authorizationPage";
 import { useRouter } from "next/router";
 import ReactPaginate from "react-paginate";
 
@@ -46,7 +46,7 @@ export async function getServerSideProps(context) {
 
 export default function Home(props) {
   const router = useRouter();
-  const [receiver, setReceiver] = useState(props.receiverData.data);
+  const [receiver, setReceiver] = useState(props.receiverData.data || []);
   const [search, setSearch] = useState(router.query.search || "");
   const [page, setPage] = useState(1);
   const [limit] = useState(3);

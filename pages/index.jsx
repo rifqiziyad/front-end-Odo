@@ -193,7 +193,12 @@ export default function Home(props) {
                 <div className={styles.history}>
                   <div className={`nav ${styles.nav}`}>
                     <h4>Transaction History</h4>
-                    <label onClick={redirectHistoryPage}>See all</label>
+                    <label
+                      className={styles.seeAll}
+                      onClick={redirectHistoryPage}
+                    >
+                      See all
+                    </label>
                   </div>
 
                   {props.transactionData.length > 0 ? (

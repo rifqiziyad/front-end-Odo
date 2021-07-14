@@ -4,11 +4,8 @@ import Footer from "components/module/Footer";
 import Navbar from "components/module/Navbar";
 import Layout from "components/layout";
 import axiosApiIntances from "utils/axios";
-import { authPage } from "middleware/authorizationPage";
 
 export async function getStaticPaths(context) {
-  // const data = await authPage(context);
-  console.log(context);
   const users = await axiosApiIntances
     .get("user/users/all-data")
     .then((res) => {
@@ -28,7 +25,6 @@ export async function getStaticPaths(context) {
 }
 
 export async function getStaticProps(context) {
-  const data = await authPage(context);
   const user = await axiosApiIntances
     .get(`user/${context.params.id}`)
     .then((res) => {

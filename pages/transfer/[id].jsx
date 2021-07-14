@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Layout from "../../components/layout";
-import Navbar from "../../components/module/Navbar";
-import styles from "../../styles/Transfer.module.css";
-import axiosApiIntances from "../../utils/axios";
-import Footer from "../../components/module/Footer";
-import SideLeft from "../../components/module/SideLeft";
-import { authPage } from "../../middleware/authorizationPage";
+import Layout from "components/layout";
+import Navbar from "components/module/Navbar";
+import styles from "styles/Transfer.module.css";
+import axiosApiIntances from "utils/axios";
+import Footer from "components/module/Footer";
+import SideLeft from "components/module/SideLeft";
+import { authPage } from "middleware/authorizationPage";
 import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {

@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import styles from "../../styles/NavbarFooter.module.css";
+import styles from "styles/NavbarFooter.module.css";
 
 function Navbar(props) {
   const router = useRouter();

@@ -344,6 +344,40 @@ form .button button {
   background-color: rgb(15, 91, 233);
 }
 
+.profile h4 {
+  color: #514f5b;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  margin-bottom: 20px;
+}
+
+.profileReceiver {
+  display: flex;
+  align-items: center;
+}
+
+.profileReceiver img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.profileReceiver div h5 {
+  font-weight: bold;
+  font-size: 18px;
+  color: #4d4b57;
+  margin: 0;
+}
+
+.profileReceiver div h6 {
+  font-size: 16px;
+  line-height: 22px;
+  color: #7a7886;
+  margin: 0;
+}
+
 /* SUCCESS */
 
 @media only screen and (max-width: 768px) {

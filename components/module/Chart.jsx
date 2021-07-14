@@ -1,15 +1,20 @@
+import moment from "moment";
 import React from "react";
 import { Bar } from "react-chartjs-2";
 
 function ChartHome(props) {
   const listDay = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const totalData = props.dataByDay.map((item) => {
-    return item.Total;
+    return item.total;
   });
 
-  const date = props.dataByDay.map((item) => {
-    return new Date(item.Date.split("T")[0]).getDay();
-  });
+  let dateToDay = [];
+  for (const item of props.dataByDay) {
+    dateToDay.push(moment(item.date).format("llll").split(",")[0]);
+  }
+
+  // console.log(moment(dateToDay[0]).format("llll").split(",")[0]);
+  // console.log(dateToDay);
 
   // const unshift = totalData.unshift(1000, 200);
 

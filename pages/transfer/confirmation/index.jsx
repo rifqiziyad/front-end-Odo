@@ -1,15 +1,16 @@
-import SideLeft from "../../../components/module/SideLeft";
-import Navbar from "../../../components/module/Navbar";
-import Footer from "../../../components/module/Footer";
-import styles from "../../../styles/Transfer.module.css";
-import Layout from "../../../components/layout";
+import SideLeft from "components/module/SideLeft";
+import Navbar from "components/module/Navbar";
+import Footer from "components/module/Footer";
+import styles from "styles/Transfer.module.css";
+import Layout from "components/layout";
 import { Modal, Button } from "react-bootstrap";
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);

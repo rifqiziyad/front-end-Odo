@@ -125,7 +125,6 @@ function Login(props) {
                   onChange={changeText}
                 ></input>
               </div>
-              <h4>Forget Password ?</h4>
               <button type="submit" className="btn btn-primary">
                 Login
               </button>

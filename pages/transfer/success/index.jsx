@@ -1,13 +1,14 @@
-import SideLeft from "../../../components/module/SideLeft";
-import Navbar from "../../../components/module/Navbar";
-import Footer from "../../../components/module/Footer";
-import styles from "../../../styles/Transfer.module.css";
-import Layout from "../../../components/layout";
-import React from "react";
-import { useState } from "react";
+import SideLeft from "components/module/SideLeft";
+import Navbar from "components/module/Navbar";
+import Footer from "components/module/Footer";
+import styles from "styles/Transfer.module.css";
+import Layout from "components/layout";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { authPage } from "middleware/authorizationPage";
 import axiosApiIntances from "utils/axios";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -20,7 +21,7 @@ export async function getServerSideProps(context) {
       },
     })
     .then((res) => {
-      return res.data.data;
+      return res.data.data[0];
     })
     .catch(() => {
       return [];
@@ -51,6 +52,7 @@ export async function getServerSideProps(context) {
 
 export default function Success(props) {
   const router = useRouter();
+  const [url, setUrl] = useState("");
   const handleHome = () => {
     router.push("/");
   };
@@ -67,6 +69,32 @@ export default function Success(props) {
     }
   };
 
+  const handleExportPDF = () => {
+    const result = {
+      amount: convertToIdr(props.balance),
+      balanceLeft: convertToIdr(
+        parseInt(props.user[0].user_balance) - parseInt(props.balance)
+      ),
+      dateTime: props.dateTime,
+      notes: props.notes,
+      receiverName: props.userReceiver.user_name,
+      receiverPhone: props.userReceiver.user_phone,
+    };
+    console.log(result);
+    axiosApiIntances
+      .get(`transaction/export/${props.user[0].user_id}`, result, {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token"),
+        },
+      })
+      .then((res) => {
+        window.open(res.data.data.url);
+      })
+      .catch((err) => {
+        return err.response;
+      });
+  };
+
   return (
     <>
       <Layout title="Transfer | Success">
@@ -81,7 +109,7 @@ export default function Success(props) {
               </div>
               <div className={styles.details}>
                 <p>Amount</p>
-                <h5>Rp{props.balance}</h5>
+                <h5>Rp{convertToIdr(props.balance)}</h5>
                 <hr />
                 <p>Balance Left</p>
                 <h5>
@@ -98,17 +126,33 @@ export default function Success(props) {
                 <p>Notes</p>
                 <h5>{props.notes}</h5>
                 <hr />
+                <div className={styles.profile}>
+                  <h4>Transfer To</h4>
+                  <div className={`col-4 ${styles.profileReceiver}`}>
+                    {props.userReceiver.user_image ? (
+                      <img
+                        src={`http://localhost:3004/backend4/api/${props.userReceiver.user_image}`}
+                        alt=""
+                      />
+                    ) : (
+                      <img src="/icon-default.png" alt="" />
+                    )}
+                    <div>
+                      <h5>{props.userReceiver.user_name}</h5>
+                      {props.userReceiver.user_phone ? (
+                        <h6>{props.userReceiver.user_phone}</h6>
+                      ) : (
+                        <h6>-</h6>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className={styles.button}>
                 <button
                   type="submit"
-                  className={`btn btn-primary ${styles.btnPdf}`}
-                >
-                  <img src="/icon-share.png" alt="" />
-                </button>
-                <button
-                  type="submit"
                   className={`btn btn-primary ${styles.btn} ${styles.btnPdf}`}
+                  onClick={handleExportPDF}
                 >
                   Download PDF
                 </button>
