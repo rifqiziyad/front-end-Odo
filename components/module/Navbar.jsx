@@ -17,7 +17,7 @@ function Navbar(props) {
           <div className={`col-4 ${styles.col2}`} onClick={handleProfile}>
             {props.user[0].user_image ? (
               <img
-                src={`http://localhost:3004/backend4/api/${props.user[0].user_image}`}
+                src={`https://odo-wallet.herokuapp.com/api/${props.user[0].user_image}`}
                 alt=""
               />
             ) : (

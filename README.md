@@ -35,7 +35,7 @@ This is a web e-wallet useful for saving money used for online transactions
 4. Add .env file at next.config.js
 
 ```
-BASE_URL=http://localhost:3004/backend4/api/v1
+BASE_URL=[backend url]
 ```
 
 5. Type `npm run dev`
@@ -46,7 +46,6 @@ BASE_URL=http://localhost:3004/backend4/api/v1
 - [Next](https://nextjs.org/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [js-cookie](https://github.com/js-cookie/js-cookie)
-
 
 ## License
 

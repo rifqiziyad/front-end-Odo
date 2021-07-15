@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    BASE_URL: "http://localhost:3004/backend4/api/v1",
+    BASE_URL: "https://odo-wallet.herokuapp.com/backend4/api/v1",
   },
   async rewrites() {
     return [

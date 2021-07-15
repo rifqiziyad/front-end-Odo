@@ -142,7 +142,7 @@ export default function Home(props) {
                     >
                       {item.user_image ? (
                         <img
-                          src={`http://localhost:3004/backend4/api/${item.user_image}`}
+                          src={`https://odo-wallet.herokuapp.com/backend4/api/${item.user_image}`}
                           alt=""
                         />
                       ) : (

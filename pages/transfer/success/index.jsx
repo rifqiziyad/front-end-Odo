@@ -131,7 +131,7 @@ export default function Success(props) {
                   <div className={`col-4 ${styles.profileReceiver}`}>
                     {props.userReceiver.user_image ? (
                       <img
-                        src={`http://localhost:3004/backend4/api/${props.userReceiver.user_image}`}
+                        src={`https://odo-wallet.herokuapp.com/backend4/api/${props.userReceiver.user_image}`}
                         alt=""
                       />
                     ) : (
