@@ -72,6 +72,13 @@
   padding: 20px 0;
 }
 
+.sideRight .outputSearch:hover {
+  background-color: #b9c4ff;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 20px;
+}
+
 .outputSearch img {
   width: 60px;
   height: 60px;

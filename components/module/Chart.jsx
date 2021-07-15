@@ -8,16 +8,6 @@ function ChartHome(props) {
     return item.total;
   });
 
-  let dateToDay = [];
-  for (const item of props.dataByDay) {
-    dateToDay.push(moment(item.date).format("llll").split(",")[0]);
-  }
-
-  // console.log(moment(dateToDay[0]).format("llll").split(",")[0]);
-  // console.log(dateToDay);
-
-  // const unshift = totalData.unshift(1000, 200);
-
   const data = {
     labels: listDay,
     datasets: [
@@ -44,7 +34,7 @@ function ChartHome(props) {
         <Bar
           data={data}
           width={500}
-          height={300}
+          height={390}
           options={{
             maintainAspectRatio: false,
           }}

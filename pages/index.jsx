@@ -7,10 +7,6 @@ import Footer from "components/module/Footer";
 import SideLeft from "components/module/SideLeft";
 import { useRouter } from "next/router";
 import ChartHome from "components/module/Chart";
-import Cookies from "js-cookie";
-import { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import Swal from "sweetalert2";
 
 export async function getServerSideProps(context) {
   const data = await authPage(context);
@@ -65,50 +61,10 @@ export async function getServerSideProps(context) {
 
 export default function Home(props) {
   const router = useRouter();
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [show, setShow] = useState(false);
-  const [balance, setBalance] = useState(0);
-
-  const changeTextAmount = (event) => {
-    setBalance(parseInt(event.target.value));
-  };
 
   const handleTopup = (event) => {
     event.preventDefault();
-    axiosApiIntances
-      .patch(
-        `user/topup/${Cookies.get("user_id")}`,
-        { userTopup: balance },
-        {
-          headers: {
-            Authorization: "Bearer " + Cookies.get("token"),
-          },
-        }
-      )
-      .then(() => {
-        Swal.showLoading(Swal.getDenyButton());
-        setShow(false);
-      })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: err.response.data.msg,
-        });
-      })
-      .finally(() => {
-        setTimeout(() => {
-          Swal.fire({
-            icon: "success",
-            title: "Success Top Up",
-            confirmButtonText: "Ok",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.reload();
-            }
-          });
-        });
-      });
+    router.push("/topup");
   };
 
   const handleTransfer = (event) => {
@@ -165,7 +121,7 @@ export default function Home(props) {
                       Transfer
                     </button>
 
-                    <button className="btn btn-light" onClick={handleShow}>
+                    <button className="btn btn-light" onClick={handleTopup}>
                       <img src="/icon-topup.png" alt="" />
                       Top Up
                     </button>
@@ -175,18 +131,6 @@ export default function Home(props) {
             </div>
             <div className={`row ${styles.row2}`}>
               <div className={`col-7 ${styles.info}`}>
-                <div className={styles.infoRow}>
-                  <div className={styles.income}>
-                    <img src="/icon-income.png" alt="" />
-                    <p>Income</p>
-                    <h5>-</h5>
-                  </div>
-                  <div className={styles.expense}>
-                    <img src="/icon-expense.png" alt="" />
-                    <p>expense</p>
-                    <h5>-</h5>
-                  </div>
-                </div>
                 <ChartHome {...props} />
               </div>
               <div className={`col-4 ${styles.historyMain}`}>
@@ -215,7 +159,7 @@ export default function Home(props) {
                           )}
                           <div className={styles.colHistory}>
                             <h6>{item.user_name}</h6>
-                            <label>Transfer</label>
+                            <label>{item.transaction_type}</label>
                           </div>
                         </div>
                         {item.transaction_receiver_id ==
@@ -238,34 +182,6 @@ export default function Home(props) {
         </div>
       </div>
       <Footer />
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header>
-          <Modal.Title>Top up</Modal.Title>
-          <Button variant="light" onClick={handleClose}>
-            X
-          </Button>
-        </Modal.Header>
-        <Modal.Body>
-          <div className={`col-12 ${styles.colRight}`}>
-            <form onSubmit={handleTopup}>
-              <div className={`mb-3 ${styles.inputPin}`}>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="0.00"
-                  onChange={changeTextAmount}
-                  required
-                ></input>
-              </div>
-              <div className={styles.buttonTopup}>
-                <button type="submit" className="btn btn-primary">
-                  Continue
-                </button>
-              </div>
-            </form>
-          </div>
-        </Modal.Body>
-      </Modal>
     </Layout>
   );
 }
