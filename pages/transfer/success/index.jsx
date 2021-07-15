@@ -82,7 +82,7 @@ export default function Success(props) {
     };
     console.log(result);
     axiosApiIntances
-      .get(`transaction/export/${props.user[0].user_id}`, result, {
+      .post(`transaction/export/${props.user[0].user_id}`, result, {
         headers: {
           Authorization: "Bearer " + Cookies.get("token"),
         },
