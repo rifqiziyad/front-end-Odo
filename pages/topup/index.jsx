@@ -1,11 +1,10 @@
-import axios from "utils/axios";
 import Layout from "components/layout";
 import Navbar from "components/module/Navbar";
 import SideLeft from "components/module/SideLeft";
 import Footer from "components/module/Footer";
-import styles from "styles/TopUp.module.css";
+import styles from "styles/Topup.module.css";
 import { authPage } from "middleware/authorizationPage";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookie from "js-cookie";
 import axiosApiIntances from "utils/axios";
 
