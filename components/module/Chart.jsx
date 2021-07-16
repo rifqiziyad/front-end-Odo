@@ -4,8 +4,30 @@ import { Bar } from "react-chartjs-2";
 
 function ChartHome(props) {
   const listDay = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const totalData = props.dataByDay.map((item) => {
-    return item.total;
+
+  const dataListDay = props.dataByDay.map((item) => {
+    return {
+      day: moment(item.date).format("llll").split(",")[0],
+      total: item.total,
+    };
+  });
+
+  const totalData = [];
+  for (const i of listDay) {
+    let res = 0;
+    for (const j of dataListDay) {
+      if (i === j.day) {
+        res += 1;
+        totalData.push(j);
+      }
+    }
+    if (res === 0) {
+      totalData.push({ day: i, total: 0 });
+    }
+  }
+
+  const dataPerDay = totalData.map((i) => {
+    return i.total;
   });
 
   const data = {
@@ -13,7 +35,7 @@ function ChartHome(props) {
     datasets: [
       {
         label: "This Weeek",
-        data: totalData,
+        data: dataPerDay,
         backgroundColor: ["rgba(54, 162, 235, 0.2)"],
         borderColor: [
           "rgba(255, 99, 132, 1)",
