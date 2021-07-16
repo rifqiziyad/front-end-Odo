@@ -1,6 +1,6 @@
 <h1 align='center'>Next JS - Odo</h1>
   <p align="center">
-    <a href="#">View Demo</a>
+    <a href="https://odo-app.vercel.app/">View Demo</a>
     ·
     <a href="https://github.com/rifqiziyad/front-end-Odo/issues">Report Bug</a>
     ·
