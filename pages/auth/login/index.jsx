@@ -39,6 +39,7 @@ function Login(props) {
           icon: "success",
           title: result.value.data.msg,
           confirmButtonText: "Ok",
+          allowOutsideClick: false,
         }).then((result) => {
           if (result.isConfirmed) {
             router.push("/");
